@@ -7,8 +7,9 @@ TagManager:
   - flower
   - fish
   - airWall
-  - wall
   - wave
+  - PressZone
+  - barrier
   layers:
   - Default
   - TransparentFX

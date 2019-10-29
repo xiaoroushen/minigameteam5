@@ -36,11 +36,21 @@ public class Map : MonoBehaviour
 
     private void createWave()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!PlayerManager.Instance.isGameOver) 
         {
-            Vector3 mousePositionInWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            CreatItem(resPrefabs[1], new Vector3(mousePositionInWorld.x, mousePositionInWorld.y, 0), Quaternion.identity);
+            if (Input.GetMouseButtonDown(0))
+            {
+
+                Vector3 mousePositionInWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                GameObject wave = Instantiate(resPrefabs[1], new Vector3(mousePositionInWorld.x, mousePositionInWorld.y, 0), Quaternion.identity);
+                if (PlayerManager.Instance.isGoodWave)
+                {
+                    wave.GetComponent<Wave>().hasNoBadEffect = true;
+                    Debug.Log("this is a good wave");
+                }
+            }
         }
+        
     }
 
     private void createFish()

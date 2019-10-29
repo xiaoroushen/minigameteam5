@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fish : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Transform flowerTranform;
+    private Transform flowerTranform;
 
     private bool isEscaped;
     private Vector3 vector1;
@@ -20,8 +20,9 @@ public class Fish : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
 
+        UpdateFlowerTransform();
     }
 
     private void FixedUpdate()
@@ -74,5 +75,12 @@ public class Fish : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void UpdateFlowerTransform()
+    {
+        if (PlayerManager.Instance.flowerTransform != null)
+        {
+            flowerTranform = PlayerManager.Instance.flowerTransform;
+        }
+    }
 
 }

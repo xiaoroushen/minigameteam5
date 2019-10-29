@@ -408,7 +408,7 @@ MonoBehaviour:
   eventList: []
   timeleftToBegin: 0
   delayTime: 0
-  earlyTime: 2
+  earlyTime: 5
   myAudioSource: {fileID: 600628170}
   cubePrefab: {fileID: 2995608969307518417, guid: e6b99cb5c629d424d9cd0e118374e5f1,
     type: 3}

@@ -20,7 +20,7 @@ public class CubeController : MonoBehaviour
             if (canBePressed)
             {
                 Destroy(gameObject);
-                Debug.Log("on target");
+                PlayerManager.Instance.GetNote();
             }
         }
     }
@@ -34,8 +34,8 @@ public class CubeController : MonoBehaviour
     {
         if (collision.tag == "PressZone")
         {
-            Debug.Log("111");
             canBePressed = true;
+            PlayerManager.Instance.isGoodWave = true;
         }
     }
 
@@ -44,7 +44,8 @@ public class CubeController : MonoBehaviour
         if(collision.tag == "PressZone")
         {
             canBePressed = false;
-            Debug.Log("You have miss this cube");
+            PlayerManager.Instance.MissNote();
+            PlayerManager.Instance.isGoodWave = false;
         }
     }
 
