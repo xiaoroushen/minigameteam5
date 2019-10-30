@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class Map : MonoBehaviour
     {
         InitMapPrefabs();
         InvokeRepeating("createFish", 8, 8);
+
+        //测试场景切换
+        Invoke("TestScene", 2);
 
     }
 
@@ -77,4 +81,8 @@ public class Map : MonoBehaviour
         }
     }
 
+    private void TestScene()
+    {
+        SceneManager.LoadScene("Book");
+    }
 }
