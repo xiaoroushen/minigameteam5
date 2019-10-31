@@ -13,7 +13,7 @@ public class Map : MonoBehaviour
         InvokeRepeating("createFish", 8, 8);
 
         //测试场景切换
-        Invoke("TestScene", 2);
+       // Invoke("TestScene", 2);
 
     }
 

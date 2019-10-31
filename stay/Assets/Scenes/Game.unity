@@ -147,7 +147,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 305.97, y: 136}
+  m_AnchoredPosition: {x: 313.2, y: 229.35}
   m_SizeDelta: {x: 48.03, y: 29.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &104980300
@@ -227,7 +227,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 305.97, y: 76.20999}
+  m_AnchoredPosition: {x: 313.19998, y: 170.77002}
   m_SizeDelta: {x: 48.03, y: 29.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &395517671
@@ -263,7 +263,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u8FDE\u51FB:"
+  m_Text: "\u4E58\u6570:"
 --- !u!222 &395517672
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -726,7 +726,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 305.97, y: 105.5}
+  m_AnchoredPosition: {x: 313.19998, y: 200.06}
   m_SizeDelta: {x: 48.03, y: 29.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1623838854
@@ -1032,7 +1032,6 @@ MonoBehaviour:
   flowerTransform: {fileID: 0}
   flowerPrefab: {fileID: 8337768353242260251, guid: 8d184f777ae40a545acc9a352fd50c0e,
     type: 3}
-  baseGetScore: 100
   multiplier: 0
   multiplierTrack: 0
   multiplierThresHold: 02000000040000000600000008000000
@@ -1357,8 +1356,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510881254715968656}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.063576, y: -0.50218344, z: 0.02734375}
-  m_LocalScale: {x: 22.213522, y: 1.6515764, z: 1}
+  m_LocalPosition: {x: 2.814, y: -0.50218344, z: 0.02734375}
+  m_LocalScale: {x: 17.50943, y: 1.6515764, z: 1}
   m_Children:
   - {fileID: 510881255106662750}
   m_Father: {fileID: 8721680156923264203}
@@ -1425,7 +1424,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.022402264, y: 0}
+  m_Offset: {x: -0.011229128, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1436,7 +1435,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4307146, y: 1.62}
+  m_Size: {x: 0.5428191, y: 1.62}
   m_EdgeRadius: 0
 --- !u!212 &510881255106662749
 SpriteRenderer:
@@ -1494,8 +1493,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510881255106662751}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0019807753, y: 0.013320507, z: 0}
-  m_LocalScale: {x: 0.020907534, y: 0.58918506, z: 1}
+  m_LocalPosition: {x: 0.25569996, y: 0.00999998, z: 0}
+  m_LocalScale: {x: 0.04772128, y: 0.58918506, z: 1}
   m_Children: []
   m_Father: {fileID: 510881254715968670}
   m_RootOrder: 0
@@ -1621,7 +1620,6 @@ MonoBehaviour:
   eventList: []
   timeleftToBegin: 0
   delayTime: 0
-  earlyTime: 5
   myAudioSource: {fileID: 2107337161}
   cubePrefab: {fileID: 2995608969307518417, guid: e6b99cb5c629d424d9cd0e118374e5f1,
     type: 3}

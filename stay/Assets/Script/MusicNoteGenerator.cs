@@ -8,21 +8,31 @@ public class MusicNoteGenerator : MonoBehaviour
     public List<float> eventList;
     public float timeleftToBegin;
     public float delayTime;
-    public float earlyTime;
+    private float earlyTime;
     private int index = 0;
     private bool haveEventList;
 
+
+
     public AudioSource myAudioSource;
     public GameObject cubePrefab;
-    void Start()
+    private void Awake()
     {
+        earlyTime = (3.3f-cubePrefab.transform.position.x) / cubePrefab.GetComponent<CubeController>().moveSpeed;
         timeleftToBegin = earlyTime - delayTime;
-        haveEventList= GetPreStoreEventList();
+        haveEventList = GetPreStoreEventList();
+    }
+
+    void Start()
+    {   
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(Time.time);
+        Debug.Log(myAudioSource.time);
         if (haveEventList)
         {
             if (timeleftToBegin > 0)
@@ -31,11 +41,12 @@ public class MusicNoteGenerator : MonoBehaviour
                 if (timeleftToBegin < 0)
                 {
                     myAudioSource.Play();
+
                 }
             }
 
             if (Time.time > eventList[index] && index < eventList.Count - 1)
-            {
+            {   
                 index++;
                 Instantiate(cubePrefab);
             }

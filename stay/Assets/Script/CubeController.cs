@@ -6,10 +6,12 @@ public class CubeController : MonoBehaviour
 {
     public int moveSpeed;
     private bool canBePressed;
+
+    //0 perfect 1 good 2 normal 3 miss
+    public GameObject[] effectPrefab;
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("DestroyGame",10);
     }
 
     // Update is called once per frame
@@ -19,10 +21,27 @@ public class CubeController : MonoBehaviour
         {
             if (canBePressed)
             {
-                Destroy(gameObject);
-                PlayerManager.Instance.GetNote();
+                gameObject.SetActive(false);
+                if (Mathf.Abs(transform.position.x - 3.3f) < 0.05)
+                {
+                    Instantiate(effectPrefab[0]);
+                    PlayerManager.Instance.GetPerfectNote();
+                }else if(Mathf.Abs(transform.position.x - 3.3f) < 0.2)
+                {
+                    Instantiate(effectPrefab[1]);
+                    PlayerManager.Instance.GetGoodNote();
+                }
+                else
+                {
+                    Instantiate(effectPrefab[2]);
+                    PlayerManager.Instance.GetNormalNote();
+                }
+                
             }
         }
+
+
+        DestroyGameObj();
     }
 
     private void FixedUpdate()
@@ -44,13 +63,17 @@ public class CubeController : MonoBehaviour
         if(collision.tag == "PressZone")
         {
             canBePressed = false;
+            Instantiate(effectPrefab[3]);
             PlayerManager.Instance.MissNote();
             PlayerManager.Instance.isGoodWave = false;
         }
     }
 
-    private void DestroyGame()
+    private void DestroyGameObj()
     {
-        Destroy(gameObject);
+        if(transform.position.x> 5.66)
+        {
+            Destroy(gameObject);
+        }
     }
 }

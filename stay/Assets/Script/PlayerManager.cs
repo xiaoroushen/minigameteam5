@@ -16,7 +16,11 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject flowerPrefab;
 
-    public int baseGetScore = 100;
+    private int normalHitScore = 25;
+    private int goodHitScore = 50;
+    private int perfectHitScore = 75;
+
+
     public int multiplier ;
     public int multiplierTrack;
     public int[] multiplierThresHold;
@@ -79,12 +83,11 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    public void GetNote()
+    private void GetNote()
     {
         if (multiplier<=multiplierThresHold.Length)
         {
             multiplierTrack++;
-            Debug.Log(multiplierTrack+":" +multiplier);
             
             if (multiplierTrack >= multiplierThresHold[multiplier - 1])
             {
@@ -94,8 +97,26 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        playerScore += multiplier * baseGetScore;
+        
 
+    }
+
+    public void GetNormalNote()
+    {
+        playerScore += multiplier * normalHitScore;
+        GetNote();
+    }
+
+    public void GetGoodNote()
+    {
+        playerScore += multiplier * goodHitScore;
+        GetNote();
+    }
+
+    public void GetPerfectNote()
+    {
+        playerScore += multiplier * perfectHitScore;
+        GetNote();
     }
 
     public  void MissNote()

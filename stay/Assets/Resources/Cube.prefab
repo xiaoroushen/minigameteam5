@@ -92,9 +92,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4824dc7dd1081244eb736ea96f90e779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  wavePrefab: {fileID: 2676367109603415115, guid: 14d820ac83333474f9fe4075d3e6a90e,
-    type: 3}
+  moveSpeed: 1
+  effectPrefab:
+  - {fileID: 5399797504348844440, guid: 89717104d32440c4eb2cf891a4d3dc84, type: 3}
+  - {fileID: 645369361119627351, guid: 36ade32fa11282747b77d7876a003d3f, type: 3}
+  - {fileID: 2598112116508920952, guid: 018a54e69c3bd2140a2dc9073f88991f, type: 3}
+  - {fileID: 559306619371043595, guid: 9fcee96f89106114b8af40fe035c86f4, type: 3}
 --- !u!61 &8080222026018348854
 BoxCollider2D:
   m_ObjectHideFlags: 0
