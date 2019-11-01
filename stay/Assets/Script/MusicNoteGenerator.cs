@@ -7,10 +7,11 @@ public class MusicNoteGenerator : MonoBehaviour
     // Start is called before the first frame update
     public List<float> eventList;
     public float timeleftToBegin;
-    public float delayTime;
-    private float earlyTime;
+    public float delayTime;//延迟时间
+    public int countDown=3;//倒计时
+    private float earlyTime;//位移提前事件
     private int index = 0;
-    private bool haveEventList;
+    private bool haveEventList;//时间表
 
 
 
@@ -24,15 +25,14 @@ public class MusicNoteGenerator : MonoBehaviour
     }
 
     void Start()
-    {   
-
+    {
+        CountDown();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Time.time);
-        Debug.Log(myAudioSource.time);
+
         if (haveEventList)
         {
             if (timeleftToBegin > 0)
@@ -63,6 +63,23 @@ public class MusicNoteGenerator : MonoBehaviour
                 eventList.Add(PlayerPrefs.GetFloat("timeEventList " + i));
             }
         return size > 0;
+
+
+    }
+
+    private IEnumerator CountDown()
+    {
+        while (countDown >= 0)
+        {
+            if (countDown > 0)
+            {
+                countDown--;
+                Debug.Log(Time.time);
+                yield return new WaitForSeconds(1);
+            }
+        }
+        yield break;
+        
 
 
     }

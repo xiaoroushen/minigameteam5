@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour
@@ -44,6 +45,11 @@ public class Map : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                if(EventSystem.current.IsPointerOverGameObject())
+                {
+                    return;
+                }
+
 
                 Vector3 mousePositionInWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 GameObject wave = Instantiate(resPrefabs[1], new Vector3(mousePositionInWorld.x, mousePositionInWorld.y, 0), Quaternion.identity);

@@ -50,3 +50,6 @@ TagManager:
   - name: GameLevel
     uniqueID: 3236975685
     locked: 0
+  - name: UI
+    uniqueID: 787888151
+    locked: 0

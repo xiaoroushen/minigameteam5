@@ -19,6 +19,7 @@ public class CubeController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+
             if (canBePressed)
             {
                 gameObject.SetActive(false);
@@ -26,7 +27,8 @@ public class CubeController : MonoBehaviour
                 {
                     Instantiate(effectPrefab[0]);
                     PlayerManager.Instance.GetPerfectNote();
-                }else if(Mathf.Abs(transform.position.x - 3.3f) < 0.2)
+                }
+                else if (Mathf.Abs(transform.position.x - 3.3f) < 0.2)
                 {
                     Instantiate(effectPrefab[1]);
                     PlayerManager.Instance.GetGoodNote();
@@ -36,7 +38,7 @@ public class CubeController : MonoBehaviour
                     Instantiate(effectPrefab[2]);
                     PlayerManager.Instance.GetNormalNote();
                 }
-                
+
             }
         }
 
