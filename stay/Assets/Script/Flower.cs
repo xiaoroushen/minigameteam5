@@ -88,21 +88,26 @@ public class Flower : MonoBehaviour
 
     private void DisableInvincible()
     {
-        if (invincibleTime > 0)
+        if (PlayerManager.Instance.sumTime <= 0)
         {
-            invincibleTime -= Time.deltaTime;
+            if (invincibleTime > 0)
+            {
+                invincibleTime -= Time.deltaTime;
+            }
+            else
+            {
+                isinvincible = false;
+                transform.GetChild(0).gameObject.SetActive(false);
+            }
         }
-        else
-        {
-            isinvincible = false;
-        }
+       
 
     }
 
     private void UpdatePlayerTransform()
     {
         PlayerManager.Instance.flowerTransform = gameObject.transform;
-        Debug.Log(PlayerManager.Instance.flowerTransform);
+    //    Debug.Log(PlayerManager.Instance.flowerTransform);
 
     }
 }

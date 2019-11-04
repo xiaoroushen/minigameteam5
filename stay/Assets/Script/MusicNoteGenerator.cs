@@ -41,6 +41,7 @@ public class MusicNoteGenerator : MonoBehaviour
                 if (timeleftToBegin < 0)
                 {
                     myAudioSource.Play();
+                    InvokeRepeating("IsGameOver", 0, 1);
 
                 }
             }
@@ -51,7 +52,10 @@ public class MusicNoteGenerator : MonoBehaviour
                 Instantiate(cubePrefab);
             }
         }
-       
+
+
+
+
 
     }
 
@@ -84,5 +88,19 @@ public class MusicNoteGenerator : MonoBehaviour
 
     }
 
+
+    private void IsGameOver()
+    {
+        if (myAudioSource.isPlaying == false)
+        {
+            Invoke("setGameOver", 3);
+        }
+    }
+
+    private void setGameOver()
+    {
+        PlayerManager.Instance.isGameOver = true;
+
+    }
 
 }

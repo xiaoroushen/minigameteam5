@@ -11,10 +11,13 @@ public class Fish : MonoBehaviour
     private Vector3 vector1;
     private Vector3 vector2;
 
+    public float baseMoveSpeed = 1;
+    private float moveSpeed;
+
     void Start()
     {
-            InvokeRepeating("RotateController", 0, 1);
-     
+        InvokeRepeating("RotateController", 0, 1);
+       // InvokeRepeating("UpdateFishSpeed", 0, 1);
 
     }
 
@@ -29,11 +32,11 @@ public class Fish : MonoBehaviour
     {
         if (!isEscaped)
         {
-            transform.Translate(vector1 * 1 * Time.fixedDeltaTime, Space.World);
+            transform.Translate(vector1 * baseMoveSpeed * Time.fixedDeltaTime, Space.World);
         }
         else
         {
-            transform.Translate(-vector1 * 10 * Time.fixedDeltaTime, Space.World);
+            transform.Translate(-vector1 * baseMoveSpeed * 10 * Time.fixedDeltaTime, Space.World);
         }
 
     }
@@ -83,4 +86,11 @@ public class Fish : MonoBehaviour
         }
     }
 
+    //update moveSpeed function
+    private void UpdateFishSpeed()
+    {
+        float randomNum = Random.value;
+        moveSpeed = randomNum * baseMoveSpeed;
+        //Debug.Log(moveSpeed);
+    }
 }

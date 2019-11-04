@@ -12,23 +12,34 @@ public class PlayerManager : MonoBehaviour
     public bool isDead;
     public bool isGoodWave;
     public bool isGameOver;
+    // character's position
     public Transform flowerTransform;
 
     public GameObject flowerPrefab;
 
+    // different point of hit area 
     private int normalHitScore = 25;
     private int goodHitScore = 50;
     private int perfectHitScore = 75;
 
-
+    // multiplier variable
     public int multiplier ;
     public int multiplierTrack;
     public int[] multiplierThresHold;
 
+    //countdown variable
+    public float sumTime;
+    public Text countDown;
 
+    // display component
     public Text lifeText;
     public Text scoreText;
     public Text multipulText;
+
+    //
+    public GameObject sumaryPanel;
+
+    //single pattern
     private static PlayerManager instance;
 
     public static PlayerManager Instance { get => instance; set => instance = value; }
@@ -40,8 +51,11 @@ public class PlayerManager : MonoBehaviour
         Instance = this;
     }
 
+
+
     private void Start()
     {
+        StartCoroutine("startCountDown");
         multiplierTrack = 0;
         multiplier = 1;
     }
@@ -57,6 +71,7 @@ public class PlayerManager : MonoBehaviour
 
         RefreshUIElement();
 
+        ShowSummaryPanel();
 
 
     }
@@ -123,6 +138,40 @@ public class PlayerManager : MonoBehaviour
     {
         multiplierTrack = 0;
         multiplier = 1;
+
+    }
+    //countDown 
+    private IEnumerator startCountDown()
+    {
+        while(sumTime >= -1)
+        {
+         
+            if(sumTime > 0)
+            {
+                countDown.text = sumTime.ToString();
+                sumTime--;
+                yield return new WaitForSeconds(1);
+
+            }else if(sumTime == 0)
+            {
+                countDown.text = "开始";
+                sumTime--;
+                yield return new WaitForSeconds(1);
+            }
+            else
+            {
+                countDown.gameObject.SetActive(false);
+                yield break;
+            }
+        }
+    } 
+
+    private void ShowSummaryPanel()
+    {
+        if (isGameOver == true)
+        {
+            sumaryPanel.SetActive(true);
+        }
 
     }
 

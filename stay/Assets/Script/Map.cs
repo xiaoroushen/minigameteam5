@@ -20,7 +20,7 @@ public class Map : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         createWave();
     }
     //封装初始化函数
@@ -41,10 +41,11 @@ public class Map : MonoBehaviour
 
     private void createWave()
     {
-        if (!PlayerManager.Instance.isGameOver) 
-        {
+        if (!PlayerManager.Instance.isGameOver&&PlayerManager.Instance.sumTime<=0) 
+        {   
             if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log(PlayerManager.Instance.sumTime);
                 if(EventSystem.current.IsPointerOverGameObject())
                 {
                     return;
