@@ -26,7 +26,7 @@ public class Wave : MonoBehaviour
     {
         thisSr = GetComponent<SpriteRenderer>();
         colorFrom = thisSr.color;
-        colorTo = new Color(colorFrom.r, colorFrom.g, colorFrom.b, 0);
+        colorTo = new Color(colorFrom.r, colorFrom.g, colorFrom.b, 0.1f);
 }
     // Start is called before the first frame update
     void Start()

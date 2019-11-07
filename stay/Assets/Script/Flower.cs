@@ -10,6 +10,7 @@ public class Flower : MonoBehaviour
     public float invincibleTime;
     private Rigidbody2D rb2D;
     // Start is called before the first frame update
+
     void Start()
     {   
         rb2D = gameObject.GetComponent<Rigidbody2D>();
