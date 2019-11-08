@@ -21,7 +21,7 @@ public class Map : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        createWave();
+       // createWave();
     }
     //封装初始化函数
     private void CreatItem(GameObject creatGameObject, Vector3 creaePosition, Quaternion creatRotation)
@@ -39,12 +39,11 @@ public class Map : MonoBehaviour
         CreatItem(resPrefabs[0], new Vector3(10, -5, 0), Quaternion.identity);
     }
 
-    private void createWave()
+    private void CreateWave()
     {
         if (!PlayerManager.Instance.isGameOver&&PlayerManager.Instance.sumTime<=0) 
         {   
-            if (Input.GetMouseButtonDown(0))
-            {
+
                 Debug.Log(PlayerManager.Instance.sumTime);
                 if(EventSystem.current.IsPointerOverGameObject())
                 {
@@ -59,7 +58,7 @@ public class Map : MonoBehaviour
                     wave.GetComponent<Wave>().hasNoBadEffect = true;
                     Debug.Log("this is a good wave");
                 }
-            }
+            
         }
         
     }
@@ -87,6 +86,42 @@ public class Map : MonoBehaviour
 
         }
     }
+
+    void OnTap(TapGesture gesture)
+    {
+        CreateWave();
+
+    }
+
+    void OnCustomGesture(PointCloudGesture gesture)
+    {
+        Debug.Log(gesture.RecognizedTemplate.name);
+        if (gesture.RecognizedTemplate.name == "yuan")
+        {
+            Debug.Log(gesture.RecognizedTemplate.name);
+            Instantiate(resPrefabs[4], Camera.main.ScreenToWorldPoint(new Vector3(gesture.Position.x, gesture.Position.y, 10)), Quaternion.identity);
+
+        }
+        else
+        {
+            float angle = VectorAngle(gesture.Position - gesture.StartPosition, new Vector2(1, 0));
+            Debug.Log(angle);
+            Instantiate(resPrefabs[3], Camera.main.ScreenToWorldPoint(new Vector3(gesture.Position.x, gesture.Position.y, 10)), Quaternion.Euler(new Vector3(0, 0, angle)));
+        }
+
+    }
+
+    private float VectorAngle(Vector2 from, Vector2 to)
+    {
+        float angle;
+
+        Vector3 cross = Vector3.Cross(from, to);
+        angle = Vector2.Angle(from, to);
+        return cross.z > 0 ? -angle : angle;
+    }
+
+
+
 
     private void TestScene()
     {

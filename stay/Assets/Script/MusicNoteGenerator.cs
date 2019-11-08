@@ -1,27 +1,36 @@
-﻿using System.Collections;
+﻿using SonicBloom.Koreo;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MusicNoteGenerator : MonoBehaviour
 {
     // Start is called before the first frame update
-    public List<float> eventList;
-    public float timeleftToBegin;
+    public float timeLeftToBegin;
     public float delayTime;//延迟时间
     public int countDown=3;//倒计时
     private float earlyTime;//位移提前事件
     private int index = 0;
-    private bool haveEventList;//时间表
 
 
+    public string eventID;
+    private Koreography playingKoreo;
+    private int sampleRate;
+    private List<int> eventSampleTimeList = new List<int>();
 
-    public AudioSource myAudioSource;
+    private AudioSource myAudioSource;
+
     public GameObject cubePrefab;
     private void Awake()
     {
         earlyTime = (3.3f-cubePrefab.transform.position.x) / cubePrefab.GetComponent<CubeController>().moveSpeed;
-        timeleftToBegin = earlyTime - delayTime;
-        haveEventList = GetPreStoreEventList();
+        timeLeftToBegin = earlyTime - delayTime;
+
+        myAudioSource = gameObject.GetComponent<AudioSource>();
+
+        playingKoreo = Koreographer.Instance.GetKoreographyAtIndex(0);
+        sampleRate = playingKoreo.SampleRate;
+        LoadEventSampleTime();
     }
 
     void Start()
@@ -33,43 +42,46 @@ public class MusicNoteGenerator : MonoBehaviour
     void Update()
     {
 
-        if (haveEventList)
+        if (timeLeftToBegin > 0)
         {
-            if (timeleftToBegin > 0)
+            timeLeftToBegin -= Time.deltaTime;
+            //Debug.Log(timeLeftToBegin);
+            if (timeLeftToBegin <= 0)
             {
-                timeleftToBegin -= Time.deltaTime;
-                if (timeleftToBegin < 0)
-                {
-                    myAudioSource.Play();
-                    InvokeRepeating("IsGameOver", 0, 1);
-
-                }
-            }
-
-            if (Time.time > eventList[index] && index < eventList.Count - 1)
-            {   
-                index++;
-                Instantiate(cubePrefab);
+                myAudioSource.Play();
+                timeLeftToBegin = 0;
             }
         }
+        GenerateNote();
 
 
 
 
 
     }
-
-    private bool GetPreStoreEventList()
+    //获取注册时间列表
+    private void LoadEventSampleTime()
     {
-        int size = PlayerPrefs.GetInt("timeEventListSize");
-            for (int i = 0; i < size; i++)
-            {
-                eventList.Add(PlayerPrefs.GetFloat("timeEventList " + i));
-            }
-        return size > 0;
-
-
+        KoreographyTrack rhythmTrack = playingKoreo.GetTrackByID(eventID);
+        List<KoreographyEvent> rawEvents = rhythmTrack.GetAllEvents();
+        for (int i = 0; i < rawEvents.Count; i++)
+        {
+            eventSampleTimeList.Add(rawEvents[i].StartSample);
+        }
     }
+    //生成note
+    private void GenerateNote()
+    {
+        Debug.Log(Time.time * sampleRate);
+
+        if (Time.time * sampleRate > eventSampleTimeList[index] && index < eventSampleTimeList.Count - 1)
+        {
+            index++;
+            Instantiate(cubePrefab);
+        }
+    }
+
+
 
     private IEnumerator CountDown()
     {
