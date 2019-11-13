@@ -11,7 +11,7 @@ public class Map : MonoBehaviour
     void Start()
     {
         InitMapPrefabs();
-        InvokeRepeating("createFish", 8, 8);
+        //InvokeRepeating("createFish", 8, 8);
 
         //测试场景切换
        // Invoke("TestScene", 2);
@@ -33,13 +33,10 @@ public class Map : MonoBehaviour
     private void InitMapPrefabs()
     {
         CreatItem(resPrefabs[2], new Vector3(0, 0, 0), Quaternion.identity);
-        CreatItem(resPrefabs[0], new Vector3(-10,5, 0), Quaternion.identity);
-        CreatItem(resPrefabs[0], new Vector3(10, 5, 0), Quaternion.identity);
-        CreatItem(resPrefabs[0], new Vector3(-10, -5, 0), Quaternion.identity);
-        CreatItem(resPrefabs[0], new Vector3(10, -5, 0), Quaternion.identity);
+
     }
 
-    private void CreateWave()
+    public void CreateWave()
     {
         if (!PlayerManager.Instance.isGameOver&&PlayerManager.Instance.sumTime<=0) 
         {   
@@ -50,15 +47,9 @@ public class Map : MonoBehaviour
                     return;
                 }
 
-
                 Vector3 mousePositionInWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 GameObject wave = Instantiate(resPrefabs[1], new Vector3(mousePositionInWorld.x, mousePositionInWorld.y, 0), Quaternion.identity);
-                if (PlayerManager.Instance.isGoodWave)
-                {
-                    wave.GetComponent<Wave>().hasNoBadEffect = true;
-                    Debug.Log("this is a good wave");
-                }
-            
+         
         }
         
     }
@@ -89,26 +80,28 @@ public class Map : MonoBehaviour
 
     void OnTap(TapGesture gesture)
     {
-        CreateWave();
+        //CreateWave();
 
     }
 
     void OnCustomGesture(PointCloudGesture gesture)
     {
         Debug.Log(gesture.RecognizedTemplate.name);
-        if (gesture.RecognizedTemplate.name == "yuan")
-        {
-            Debug.Log(gesture.RecognizedTemplate.name);
-            Instantiate(resPrefabs[4], Camera.main.ScreenToWorldPoint(new Vector3(gesture.Position.x, gesture.Position.y, 10)), Quaternion.identity);
+        if(PlayerManager.Instance.skillNum>0){
+            if (gesture.RecognizedTemplate.name == "yuan")
+            {
+                Debug.Log(gesture.RecognizedTemplate.name);
+                Instantiate(resPrefabs[4], Camera.main.ScreenToWorldPoint(new Vector3(gesture.Position.x, gesture.Position.y, 10)), Quaternion.identity);
 
-        }
-        else
-        {
-            float angle = VectorAngle(gesture.Position - gesture.StartPosition, new Vector2(1, 0));
-            Debug.Log(angle);
-            Instantiate(resPrefabs[3], Camera.main.ScreenToWorldPoint(new Vector3(gesture.Position.x, gesture.Position.y, 10)), Quaternion.Euler(new Vector3(0, 0, angle)));
-        }
-
+            }
+            else
+            {
+                float angle = VectorAngle(gesture.Position - gesture.StartPosition, new Vector2(1, 0));
+                Debug.Log(angle);
+                Instantiate(resPrefabs[3], Camera.main.ScreenToWorldPoint(new Vector3(gesture.Position.x, gesture.Position.y, 10)), Quaternion.Euler(new Vector3(0, 0, angle)));
+            }
+            PlayerManager.Instance.skillNum--;
+        }        
     }
 
     private float VectorAngle(Vector2 from, Vector2 to)

@@ -9,8 +9,6 @@ public class Wave : MonoBehaviour
     public float existedTime;
     public float aclRate=1;
 
-    //是否对莲心造成副作用
-    public bool hasNoBadEffect;
 
     //渐变相关变量
     private Color colorFrom;
@@ -75,10 +73,6 @@ public class Wave : MonoBehaviour
                 break;
 
             case "flower":
-                if (!hasNoBadEffect)
-                {
-                    //生命属性减少
-                }
                 Debug.Log("与flower");
 
                 forceDirection = collision.transform.position - transform.position;

@@ -5,9 +5,24 @@ using UnityEngine;
 public class WaterWall : MonoBehaviour
 {
     // Start is called before the first frame update
+    //水墙生存的最大时间
+    public float existedTime;
+    //水墙的生命值
+    public float lifeValue;
+    //水墙的当前生命值
+    private float currentLV;
+    //墙的初始厚度
+    private float originScaleOfY;
+
+    private void Awake()
+    {
+        originScaleOfY = transform.localScale.y;
+        currentLV = lifeValue;
+    }
     void Start()
     {
-
+        
+        Destroy(gameObject, existedTime);
     }
 
     // Update is called once per frame
@@ -17,9 +32,23 @@ public class WaterWall : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "fish")
-        {
+        {   
             Debug.Log("FISH123");
-            Destroy(collision.gameObject);
+            updateState();
+            collision.SendMessage("Escape");
+        }
+    }
+
+    private void updateState()
+    {
+        currentLV--;
+        if (currentLV > 0)
+        {
+            transform.localScale = new Vector3(transform.localScale.x, originScaleOfY*(currentLV/lifeValue), transform.localScale.z);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 

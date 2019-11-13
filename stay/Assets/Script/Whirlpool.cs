@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Whirlpool : MonoBehaviour
 {
+    public float existedTime;
     // Start is called before the first frame update
     public float zRotateSpeed;
     void Start()
     {
-        
+        Destroy(gameObject, existedTime);
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class Whirlpool : MonoBehaviour
         if (collision.tag == "fish")
         {
             Debug.Log("FISH123");
-            Destroy(collision.gameObject);
+            collision.SendMessage("Escape");
         }
     }
 

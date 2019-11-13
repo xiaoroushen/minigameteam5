@@ -10,7 +10,6 @@ public class PlayerManager : MonoBehaviour
     public int playerScore = 0;
 
     public bool isDead;
-    public bool isGoodWave;
     public bool isGameOver;
     // character's position
     public Transform flowerTransform;
@@ -35,9 +34,12 @@ public class PlayerManager : MonoBehaviour
     public Text lifeText;
     public Text scoreText;
     public Text multipulText;
+    //技能点数
+    public int skillNum;
 
     //
     public GameObject sumaryPanel;
+
 
     //single pattern
     private static PlayerManager instance;

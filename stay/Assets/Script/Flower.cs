@@ -35,8 +35,11 @@ public class Flower : MonoBehaviour
             case "fish":
                 if (!isinvincible)
                 {
-                    Debug.Log("检测到fish");
-                    Die();
+                    if (!collision.gameObject.GetComponent<Fish>().isEscaped)
+                    {
+                        Debug.Log("检测到fish");
+                        Die();
+                    }
                 }
                 break;
 

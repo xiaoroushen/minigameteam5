@@ -12,19 +12,44 @@ public class MusicNoteGenerator : MonoBehaviour
     private float earlyTime;//位移提前事件
     private int index = 0;
 
+    private float earlyDistance;//游鱼设定初判的距离
+    private float fishEarlyTime;//游鱼提前时间
+    private List<Vector3> positionEnum= new List<Vector3>();//游鱼初始的位置0右上1左上2左下3右下
+    private int posSeed;//位置种子
+
+    private float fishDelayTime;
+
+
 
     public string eventID;
     private Koreography playingKoreo;
     private int sampleRate;
-    private List<int> eventSampleTimeList = new List<int>();
+
+
+
+    //自定义二元数据结构
+    struct TwoDData
+    {
+        public int beginTime;
+        //0短cube_单个鱼 1长cube_鱼墙 2长cube_鱼排
+        public int typeEnum;
+    }
+
+    private List<TwoDData> eventSampleTimeList = new List<TwoDData>();
+    
+    
 
     private AudioSource myAudioSource;
-
-    public GameObject cubePrefab;
+    //cubePrefab 0是小cube 1是长cube
+    public GameObject[] cubePrefab;
+    //fish的prefab
+    public GameObject fishPrefab;
     private void Awake()
     {
-        earlyTime = (3.3f-cubePrefab.transform.position.x) / cubePrefab.GetComponent<CubeController>().moveSpeed;
-        timeLeftToBegin = earlyTime - delayTime;
+        InitPositionEnum();
+        InitTimeLeftToBegin();
+        InitFishEarlyTime();
+        fishDelayTime = timeLeftToBegin - fishEarlyTime;
 
         myAudioSource = gameObject.GetComponent<AudioSource>();
 
@@ -66,18 +91,22 @@ public class MusicNoteGenerator : MonoBehaviour
         List<KoreographyEvent> rawEvents = rhythmTrack.GetAllEvents();
         for (int i = 0; i < rawEvents.Count; i++)
         {
-            eventSampleTimeList.Add(rawEvents[i].StartSample);
+            Debug.Log(rawEvents[i].GetIntValue());
+            TwoDData temp = new TwoDData { beginTime = rawEvents[i].StartSample, typeEnum = rawEvents[i].GetIntValue() };
+            eventSampleTimeList.Add(temp);
         }
     }
     //生成note
     private void GenerateNote()
     {
-        Debug.Log(Time.time * sampleRate);
+        //Debug.Log(Time.time * sampleRate);
 
-        if (Time.time * sampleRate > eventSampleTimeList[index] && index < eventSampleTimeList.Count - 1)
-        {
+        if (Time.time * sampleRate > eventSampleTimeList[index].beginTime && index < eventSampleTimeList.Count - 1)
+        {   
+            int cubeType= eventSampleTimeList[index].typeEnum>0 ?1:0;
+            Instantiate(cubePrefab[cubeType]);
+            Invoke("GenerateFish", fishDelayTime);
             index++;
-            Instantiate(cubePrefab);
         }
     }
 
@@ -113,6 +142,35 @@ public class MusicNoteGenerator : MonoBehaviour
     {
         PlayerManager.Instance.isGameOver = true;
 
+    }
+    //初始化positionEnum
+    private void InitPositionEnum()
+    {
+        positionEnum.Add(new Vector3(10, 5, 0));
+        positionEnum.Add(new Vector3(-10, 5, 0));
+        positionEnum.Add(new Vector3(-10, -5, 0));
+        positionEnum.Add(new Vector3(10, -5, 0));
+    }
+
+    private void InitTimeLeftToBegin()
+    {
+        earlyTime = (3.3f - cubePrefab[0].transform.position.x) / cubePrefab[0].GetComponent<CubeController>().moveSpeed;
+        timeLeftToBegin = earlyTime - delayTime;
+        Debug.Log(timeLeftToBegin);
+    }
+
+    private void InitFishEarlyTime()
+    {
+        earlyDistance = 2.5f * Mathf.Sqrt(5);
+        fishEarlyTime = earlyDistance/ fishPrefab.GetComponent<Fish>().baseMoveSpeed;
+        Debug.Log(fishEarlyTime);
+    }
+
+    private void GenerateFish()
+    {
+        posSeed = (posSeed+1) % 4;
+        Debug.Log(posSeed);
+        Instantiate(fishPrefab, positionEnum[posSeed], Quaternion.identity);
     }
 
 }

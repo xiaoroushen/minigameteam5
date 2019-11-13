@@ -98,6 +98,8 @@ MonoBehaviour:
   - {fileID: 645369361119627351, guid: 36ade32fa11282747b77d7876a003d3f, type: 3}
   - {fileID: 2598112116508920952, guid: 018a54e69c3bd2140a2dc9073f88991f, type: 3}
   - {fileID: 559306619371043595, guid: 9fcee96f89106114b8af40fe035c86f4, type: 3}
+  mapPrefab: {fileID: 1457362991622872323, guid: 76d3858665e31594b895af95ff199de4,
+    type: 3}
 --- !u!61 &8080222026018348854
 BoxCollider2D:
   m_ObjectHideFlags: 0

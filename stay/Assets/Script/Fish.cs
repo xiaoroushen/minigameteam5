@@ -7,12 +7,26 @@ public class Fish : MonoBehaviour
     // Start is called before the first frame update
     private Transform flowerTranform;
 
-    private bool isEscaped;
+    public bool isEscaped;
     private Vector3 vector1;
     private Vector3 vector2;
 
     public float baseMoveSpeed = 1;
     private float moveSpeed;
+
+    private float rate;
+    private float totalTime;
+    private Color colorFrom = new Color(0, 0, 0);
+    private Color colorTo = new Color(1,1,1);
+
+
+    private SpriteRenderer thisSpr;
+
+
+    private void Awake()
+    {
+        thisSpr = gameObject.GetComponent<SpriteRenderer>();
+    }
 
     void Start()
     {
@@ -36,8 +50,10 @@ public class Fish : MonoBehaviour
         }
         else
         {
-            transform.Translate(-vector1 * baseMoveSpeed * 10 * Time.fixedDeltaTime, Space.World);
+            transform.Translate(-vector1 * baseMoveSpeed * 3 * Time.fixedDeltaTime, Space.World);
+            ChangeColor(3);
         }
+        
 
     }
 
@@ -67,16 +83,17 @@ public class Fish : MonoBehaviour
 
     private void Escape()
     {
-        CancelInvoke("RotateController");
-        transform.eulerAngles = new Vector3(-transform.eulerAngles.x, -transform.eulerAngles.y,0);
-        isEscaped = true;
-        Invoke("DestroyFish", 5);
+        if (!isEscaped)
+        {
+            CancelInvoke("RotateController");
+            transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z + 180);
+            isEscaped = true;
+
+            Destroy(gameObject, 5);
+        }
+
     }
 
-    private void DestroyFish()
-    {
-        Destroy(gameObject);
-    }
 
     private void UpdateFlowerTransform()
     {
@@ -92,5 +109,21 @@ public class Fish : MonoBehaviour
         float randomNum = Random.value;
         moveSpeed = randomNum * baseMoveSpeed;
         //Debug.Log(moveSpeed);
+    }
+
+    private void ChangeColor(float changeTime)
+    {
+        if (totalTime < changeTime)
+        {
+            
+            totalTime += Time.fixedDeltaTime;
+            rate = Mathf.Sqrt(totalTime / changeTime);
+            thisSpr.color = Color.Lerp(colorFrom, colorTo, rate);
+        }
+        else
+        {
+            totalTime = 0;
+        }
+
     }
 }

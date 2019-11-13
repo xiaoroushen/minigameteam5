@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a045f894ed30747bdbca35fe3359dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  existedTime: 3
   zRotateSpeed: 90
 --- !u!58 &2940328574321946214
 CircleCollider2D:

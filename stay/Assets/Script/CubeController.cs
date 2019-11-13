@@ -9,6 +9,9 @@ public class CubeController : MonoBehaviour
 
     //0 perfect 1 good 2 normal 3 miss
     public GameObject[] effectPrefab;
+
+
+    public GameObject mapPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +25,7 @@ public class CubeController : MonoBehaviour
 
             if (canBePressed)
             {
+                mapPrefab.GetComponent<Map>().CreateWave();
                 gameObject.SetActive(false);
                 if (Mathf.Abs(transform.position.x - 3.3f) < 0.05)
                 {
@@ -56,7 +60,6 @@ public class CubeController : MonoBehaviour
         if (collision.tag == "PressZone")
         {
             canBePressed = true;
-            PlayerManager.Instance.isGoodWave = true;
         }
     }
 
@@ -67,7 +70,6 @@ public class CubeController : MonoBehaviour
             canBePressed = false;
             Instantiate(effectPrefab[3]);
             PlayerManager.Instance.MissNote();
-            PlayerManager.Instance.isGoodWave = false;
         }
     }
 
