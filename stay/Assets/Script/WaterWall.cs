@@ -33,9 +33,15 @@ public class WaterWall : MonoBehaviour
     {
         if (collision.tag == "fish")
         {   
-            Debug.Log("FISH123");
             updateState();
+
+            
+            if (collision.transform.parent != null)
+            {
+                collision.transform.parent.gameObject.GetComponent<Fish_Group_Controller>().ChangeState();
+            }
             collision.SendMessage("Escape");
+
         }
     }
 

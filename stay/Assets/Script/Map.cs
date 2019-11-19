@@ -97,7 +97,6 @@ public class Map : MonoBehaviour
             else
             {
                 float angle = VectorAngle(gesture.Position - gesture.StartPosition, new Vector2(1, 0));
-                Debug.Log(angle);
                 Instantiate(resPrefabs[3], Camera.main.ScreenToWorldPoint(new Vector3(gesture.Position.x, gesture.Position.y, 10)), Quaternion.Euler(new Vector3(0, 0, angle)));
             }
             PlayerManager.Instance.skillNum--;

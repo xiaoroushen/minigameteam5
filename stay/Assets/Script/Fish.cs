@@ -18,7 +18,8 @@ public class Fish : MonoBehaviour
     private float totalTime;
     private Color colorFrom = new Color(0, 0, 0);
     private Color colorTo = new Color(1,1,1);
-
+    //判断是否是鱼群的集体动作
+    public bool isFishGroupState;
 
     private SpriteRenderer thisSpr;
 
@@ -46,7 +47,11 @@ public class Fish : MonoBehaviour
     {
         if (!isEscaped)
         {
-            transform.Translate(vector1 * baseMoveSpeed * Time.fixedDeltaTime, Space.World);
+            if (!isFishGroupState)
+            {
+                transform.Translate(vector1 * baseMoveSpeed * Time.fixedDeltaTime, Space.World);
+            }
+
         }
         else
         {
@@ -74,7 +79,7 @@ public class Fish : MonoBehaviour
 
     private void RotateController()
     {
-        if (flowerTranform)
+        if (flowerTranform&&!isFishGroupState)
         {
             transform.eulerAngles = CalculateRotateAngle();
         }
@@ -86,6 +91,15 @@ public class Fish : MonoBehaviour
         if (!isEscaped)
         {
             CancelInvoke("RotateController");
+            if (flowerTranform)
+            {
+                vector1 = (flowerTranform.position - transform.position).normalized;
+            }
+            else
+            {
+                vector1 = new Vector3(0, 0, 0);
+            }
+
             transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z + 180);
             isEscaped = true;
 

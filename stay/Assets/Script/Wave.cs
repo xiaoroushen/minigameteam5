@@ -63,7 +63,6 @@ public class Wave : MonoBehaviour
         switch (collision.tag)
         {
             case "fish":
-                Debug.Log("检测到fish");
                 collision.SendMessage("Escape");
                 break;
 

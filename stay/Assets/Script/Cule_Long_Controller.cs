@@ -26,7 +26,7 @@ public class Cule_Long_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0)||(Input.touchCount>0&&Input.GetTouch(0).phase==TouchPhase.Moved))
         {
 
             if (canBePressed)
@@ -52,7 +52,7 @@ public class Cule_Long_Controller : MonoBehaviour
             }
         }
         // 抬起结束触发
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0)|| (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended))
         {
             if (canBePressed&& transform.localScale.x<=0)
             {

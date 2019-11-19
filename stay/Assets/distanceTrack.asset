@@ -219,7 +219,7 @@ MonoBehaviour:
   _GradientPayloads: []
   _GradientPayloadIdxs: 
   _IntPayloads:
-  - mIntVal: 1
+  - mIntVal: 2
   - mIntVal: 1
   - mIntVal: 1
   _IntPayloadIdxs: 00000000080000000a000000

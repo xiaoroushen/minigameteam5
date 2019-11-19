@@ -387,7 +387,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -882, y: -7}
+  m_AnchoredPosition: {x: -881.25, y: 0}
   m_SizeDelta: {x: 162.5, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &323126725
@@ -1729,7 +1729,6 @@ GameObject:
   - component: {fileID: 1088678967}
   - component: {fileID: 1088678970}
   - component: {fileID: 1088678969}
-  - component: {fileID: 1088678971}
   m_Layer: 5
   m_Name: pausePanel
   m_TagString: Untagged
@@ -1825,21 +1824,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd1c13b751d40c41afc9829aecd2e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 3551913043245168269}
   button: {fileID: 355533159}
---- !u!114 &1088678971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1088678965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41cd26714a9f013438c2f934a78a0002, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isEscaped: 0
-  baseMoveSpeed: 1
 --- !u!1 &1180789002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1964,7 +1950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ad6fdd6c3751993499aef52903582a27, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ad6fdd6c3751993499aef52903582a27, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2287,7 +2273,7 @@ RectTransform:
   - {fileID: 662820021}
   - {fileID: 1797041944}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3266,8 +3252,10 @@ MonoBehaviour:
   cubePrefab:
   - {fileID: 2995608969307518417, guid: e6b99cb5c629d424d9cd0e118374e5f1, type: 3}
   - {fileID: 5302979051922412380, guid: bd8066c7dd492764daa46e9883421a19, type: 3}
-  fishPrefab: {fileID: 7637362561437275435, guid: 38e9ff4d2fac7314091efbdd6a4a471b,
-    type: 3}
+  fishPrefab:
+  - {fileID: 7637362561437275435, guid: 38e9ff4d2fac7314091efbdd6a4a471b, type: 3}
+  - {fileID: 2471662737810651332, guid: 56841973e64d21f4b921ef275dccb34d, type: 3}
+  - {fileID: 3504555603609158811, guid: ff1831fe6ebf47c4487afa0c59c84b92, type: 3}
 --- !u!1 &3551913043245168267
 GameObject:
   m_ObjectHideFlags: 0

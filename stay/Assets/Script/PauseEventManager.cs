@@ -8,6 +8,7 @@ public class PauseEventManager : MonoBehaviour
 
     private Animator anim;
 
+    public AudioSource audioSource;
     public GameObject button;
     // Start is called before the first frame update
     private void Awake()
@@ -37,13 +38,17 @@ public class PauseEventManager : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+        audioSource.UnPause();
+        string sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName);
     }
 
 
     public void EndPauseAnimation()
     {
         Time.timeScale = 0;
+        audioSource.Pause();
+
     }
 
     public void EndunPauseAnimation()

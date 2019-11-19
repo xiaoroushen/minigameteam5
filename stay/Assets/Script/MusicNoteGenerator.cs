@@ -18,7 +18,7 @@ public class MusicNoteGenerator : MonoBehaviour
     private int posSeed;//位置种子
 
     private float fishDelayTime;
-
+    private Queue<int> fishTypeQueue = new Queue<int>();
 
 
     public string eventID;
@@ -42,10 +42,13 @@ public class MusicNoteGenerator : MonoBehaviour
     private AudioSource myAudioSource;
     //cubePrefab 0是小cube 1是长cube
     public GameObject[] cubePrefab;
-    //fish的prefab
-    public GameObject fishPrefab;
+    //fish的prefab 0是单个 1是单排 2是多排
+    public GameObject[] fishPrefab;
     private void Awake()
     {
+        positionEnum.Clear();
+        fishTypeQueue.Clear();
+        eventSampleTimeList.Clear();
         InitPositionEnum();
         InitTimeLeftToBegin();
         InitFishEarlyTime();
@@ -56,11 +59,13 @@ public class MusicNoteGenerator : MonoBehaviour
         playingKoreo = Koreographer.Instance.GetKoreographyAtIndex(0);
         sampleRate = playingKoreo.SampleRate;
         LoadEventSampleTime();
+
     }
 
     void Start()
     {
         CountDown();
+        Debug.Log(Time.timeSinceLevelLoad);
     }
 
     // Update is called once per frame
@@ -70,7 +75,7 @@ public class MusicNoteGenerator : MonoBehaviour
         if (timeLeftToBegin > 0)
         {
             timeLeftToBegin -= Time.deltaTime;
-            //Debug.Log(timeLeftToBegin);
+           // Debug.Log(timeLeftToBegin);
             if (timeLeftToBegin <= 0)
             {
                 myAudioSource.Play();
@@ -91,7 +96,6 @@ public class MusicNoteGenerator : MonoBehaviour
         List<KoreographyEvent> rawEvents = rhythmTrack.GetAllEvents();
         for (int i = 0; i < rawEvents.Count; i++)
         {
-            Debug.Log(rawEvents[i].GetIntValue());
             TwoDData temp = new TwoDData { beginTime = rawEvents[i].StartSample, typeEnum = rawEvents[i].GetIntValue() };
             eventSampleTimeList.Add(temp);
         }
@@ -99,11 +103,11 @@ public class MusicNoteGenerator : MonoBehaviour
     //生成note
     private void GenerateNote()
     {
-        //Debug.Log(Time.time * sampleRate);
-
-        if (Time.time * sampleRate > eventSampleTimeList[index].beginTime && index < eventSampleTimeList.Count - 1)
+        //Debug.Log(Time.timeSinceLevelLoad * sampleRate);
+        if (Time.timeSinceLevelLoad * sampleRate > eventSampleTimeList[index].beginTime && index < eventSampleTimeList.Count - 1)
         {   
             int cubeType= eventSampleTimeList[index].typeEnum>0 ?1:0;
+            fishTypeQueue.Enqueue(cubeType);
             Instantiate(cubePrefab[cubeType]);
             Invoke("GenerateFish", fishDelayTime);
             index++;
@@ -162,15 +166,15 @@ public class MusicNoteGenerator : MonoBehaviour
     private void InitFishEarlyTime()
     {
         earlyDistance = 2.5f * Mathf.Sqrt(5);
-        fishEarlyTime = earlyDistance/ fishPrefab.GetComponent<Fish>().baseMoveSpeed;
+        fishEarlyTime = earlyDistance/ fishPrefab[0].GetComponent<Fish>().baseMoveSpeed;
         Debug.Log(fishEarlyTime);
     }
 
     private void GenerateFish()
     {
+        int fishType = fishTypeQueue.Dequeue();
         posSeed = (posSeed+1) % 4;
-        Debug.Log(posSeed);
-        Instantiate(fishPrefab, positionEnum[posSeed], Quaternion.identity);
+        Instantiate(fishPrefab[fishType], positionEnum[posSeed], Quaternion.identity);
     }
 
 }
