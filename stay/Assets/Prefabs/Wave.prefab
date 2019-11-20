@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   existedTime: 3
   aclRate: 3
-  hasNoBadEffect: 0
+  waveLife: 1
 --- !u!50 &6987128357824617905
 Rigidbody2D:
   serializedVersion: 4

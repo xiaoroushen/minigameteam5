@@ -9,6 +9,7 @@ public class Wave : MonoBehaviour
     public float existedTime;
     public float aclRate=1;
 
+    public int waveLife=1;
 
     //渐变相关变量
     private Color colorFrom;
@@ -52,7 +53,6 @@ public class Wave : MonoBehaviour
 
         if (!endFade)
         {
-            FadeEffect();
         }
 
 
@@ -63,7 +63,11 @@ public class Wave : MonoBehaviour
         switch (collision.tag)
         {
             case "fish":
-                collision.SendMessage("Escape");
+                if (waveLife > 0)
+                {
+                    collision.SendMessage("Escape");
+                    WaveDispose();
+                }
                 break;
 
             case "wall":
@@ -106,6 +110,12 @@ public class Wave : MonoBehaviour
             endFade = true;
         }
     }
+
+    private void WaveDispose()
+    {
+        waveLife--;
+        
+    } 
 
 
 

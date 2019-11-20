@@ -222,7 +222,8 @@ MonoBehaviour:
   - mIntVal: 2
   - mIntVal: 1
   - mIntVal: 1
-  _IntPayloadIdxs: 00000000080000000a000000
+  - mIntVal: 0
+  _IntPayloadIdxs: 00000000080000000a0000003a000000
   _SpectrumPayloads: []
   _SpectrumPayloadIdxs: 
   _TextPayloads: []

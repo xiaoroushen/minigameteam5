@@ -13,6 +13,15 @@ public class LoadSceneManager : MonoBehaviour
     private int currentPage;
 
     // Update is called once per frame
+    private void Start()
+    {   
+        if(PlayerPrefs.HasKey("currentPage"))
+        {
+            transform.GetChild(0).gameObject.GetComponent<Book>().currentPage = PlayerPrefs.GetInt("currentPage", currentPage);
+        }
+
+        
+    }
     void Update()
     {
         UpdateLockStatus();
@@ -20,7 +29,7 @@ public class LoadSceneManager : MonoBehaviour
     public void LoadGameScene()
     {
         PlayerPrefs.SetInt("currentPage", currentPage);
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Game"+ currentPage/2);
         
     }
 
@@ -29,7 +38,7 @@ public class LoadSceneManager : MonoBehaviour
         currentPage = transform.GetChild(0).gameObject.GetComponent<Book>().currentPage;
         if(currentPage > 0)
         {
-            if (PlayerPrefs.GetInt("level" + currentPage) == 1)
+            if (PlayerPrefs.GetInt("Game" + currentPage/2) == 1)
             {
                 Debug.Log("123");
                 lockImage.SetActive(false);

@@ -6,7 +6,7 @@ public class CubeController : MonoBehaviour
 {
     public int moveSpeed;
     private bool canBePressed;
-
+    private bool isEliminate;
     //0 perfect 1 good 2 normal 3 miss
     public GameObject[] effectPrefab;
 
@@ -22,9 +22,11 @@ public class CubeController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)||( Input.touchCount>0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
-
-            if (canBePressed)
+            if (canBePressed&& (PlayerManager.Instance.cubePool.Peek() == gameObject.GetInstanceID()))
             {
+                Invoke("DequeGameObject", Time.deltaTime);//在下一帧之前出队列
+                
+                isEliminate = true;
                 mapPrefab.GetComponent<Map>().CreateWave();
                 gameObject.SetActive(false);
                 if (Mathf.Abs(transform.position.x - 3.3f) < 0.05)
@@ -60,6 +62,7 @@ public class CubeController : MonoBehaviour
         if (collision.tag == "PressZone")
         {
             canBePressed = true;
+            PlayerManager.Instance.cubePool.Enqueue(gameObject.GetInstanceID());
         }
     }
 
@@ -68,6 +71,11 @@ public class CubeController : MonoBehaviour
         if(collision.tag == "PressZone")
         {
             canBePressed = false;
+            if (!isEliminate)
+            {
+                PlayerManager.Instance.cubePool.Dequeue();
+            }
+
             Instantiate(effectPrefab[3]);
             PlayerManager.Instance.MissNote();
         }
@@ -79,5 +87,10 @@ public class CubeController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void DequeGameObject()
+    {
+        PlayerManager.Instance.cubePool.Dequeue();
     }
 }

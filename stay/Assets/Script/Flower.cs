@@ -37,23 +37,12 @@ public class Flower : MonoBehaviour
                 {
                     if (!collision.gameObject.GetComponent<Fish>().isEscaped)
                     {
-                        Debug.Log("检测到fish");
-                        Die();
+                        Destroy(collision.gameObject);
+                        GetHit();
                     }
                 }
                 break;
 
-            case "barrier":
-                if (!isinvincible)
-                {
-                    Debug.Log("检测到wall");
-                    Die();
-                }
-                else
-                {
-                    gameObject.transform.position = new Vector3(0, 0, 0);
-                }
-                break;
 
             case "wave":
                 Debug.Log("与waveTrigger触发");
@@ -62,6 +51,15 @@ public class Flower : MonoBehaviour
                 break;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "barrier")
+        {
+            Debug.Log("触碰到了空气墙");
+        }
+    }
+
 
     private void MoveTest()
     {
@@ -84,10 +82,9 @@ public class Flower : MonoBehaviour
 
     }
 
-    private void Die()
+    private void GetHit()
     {
-        Destroy(gameObject);
-        PlayerManager.Instance.isDead = true;
+        PlayerManager.Instance.hitCount++;
     }
 
     private void DisableInvincible()

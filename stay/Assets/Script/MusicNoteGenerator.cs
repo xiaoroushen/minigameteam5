@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class MusicNoteGenerator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public float timeLeftToBegin;
+
+    public float timeLeftToBegin;//音乐开始倒计时
     public float delayTime;//延迟时间
     public int countDown=3;//倒计时
     private float earlyTime;//位移提前事件
-    private int index = 0;
+    private int index = 0;//索引
+
+    private float gameOverCountDown;
 
     private float earlyDistance;//游鱼设定初判的距离
     private float fishEarlyTime;//游鱼提前时间
@@ -19,6 +21,7 @@ public class MusicNoteGenerator : MonoBehaviour
 
     private float fishDelayTime;
     private Queue<int> fishTypeQueue = new Queue<int>();
+
 
 
     public string eventID;
@@ -104,13 +107,18 @@ public class MusicNoteGenerator : MonoBehaviour
     private void GenerateNote()
     {
         //Debug.Log(Time.timeSinceLevelLoad * sampleRate);
-        if (Time.timeSinceLevelLoad * sampleRate > eventSampleTimeList[index].beginTime && index < eventSampleTimeList.Count - 1)
+        if ( index < eventSampleTimeList.Count && Time.timeSinceLevelLoad * sampleRate > eventSampleTimeList[index].beginTime )
         {   
             int cubeType= eventSampleTimeList[index].typeEnum>0 ?1:0;
             fishTypeQueue.Enqueue(cubeType);
             Instantiate(cubePrefab[cubeType]);
             Invoke("GenerateFish", fishDelayTime);
             index++;
+            //最后一个生成后延时结束
+            if (index == eventSampleTimeList.Count)
+            {
+                Invoke("setGameOver", gameOverCountDown + 3);
+            }
         }
     }
 
@@ -134,14 +142,6 @@ public class MusicNoteGenerator : MonoBehaviour
     }
 
 
-    private void IsGameOver()
-    {
-        if (myAudioSource.isPlaying == false)
-        {
-            Invoke("setGameOver", 3);
-        }
-    }
-
     private void setGameOver()
     {
         PlayerManager.Instance.isGameOver = true;
@@ -154,18 +154,34 @@ public class MusicNoteGenerator : MonoBehaviour
         positionEnum.Add(new Vector3(-10, 5, 0));
         positionEnum.Add(new Vector3(-10, -5, 0));
         positionEnum.Add(new Vector3(10, -5, 0));
+
+        positionEnum.Add(new Vector3(0, 9.7f, 0));
+        positionEnum.Add(new Vector3(-11, 0, 0));
+        positionEnum.Add(new Vector3(0, -9.7f, 0));
+        positionEnum.Add(new Vector3(11, 0, 0));
+
+        positionEnum.Add(new Vector3(-6.33f, 7.45f, 0));
+        positionEnum.Add(new Vector3(-6.33f, -7.45f, 0));
+        positionEnum.Add(new Vector3(6.33f, -7.45f, 0));
+        positionEnum.Add(new Vector3(6.33f, 7.45f, 0));
+        //positionEnum.Add(new Vector3(0, 9.7f, 0));
+        //positionEnum.Add(new Vector3(-6.33f, 7.45f, 0));
+        //positionEnum.Add(new Vector3(11, 0, 0));
+        // 上 new Vector3(0,9.7,0);下 new Vector3(0,-9.7,0); -45 new new Vector3(-6.33,7.45,0)  左 - 11 右 11
     }
 
     private void InitTimeLeftToBegin()
     {
         earlyTime = (3.3f - cubePrefab[0].transform.position.x) / cubePrefab[0].GetComponent<CubeController>().moveSpeed;
         timeLeftToBegin = earlyTime - delayTime;
+        gameOverCountDown = timeLeftToBegin;
         Debug.Log(timeLeftToBegin);
     }
 
     private void InitFishEarlyTime()
     {
-        earlyDistance = 2.5f * Mathf.Sqrt(5);
+        earlyDistance = 3f * Mathf.Sqrt(5);
+        Debug.Log(earlyDistance);
         fishEarlyTime = earlyDistance/ fishPrefab[0].GetComponent<Fish>().baseMoveSpeed;
         Debug.Log(fishEarlyTime);
     }
@@ -173,7 +189,7 @@ public class MusicNoteGenerator : MonoBehaviour
     private void GenerateFish()
     {
         int fishType = fishTypeQueue.Dequeue();
-        posSeed = (posSeed+1) % 4;
+        posSeed = (posSeed+1) % positionEnum.Count;
         Instantiate(fishPrefab[fishType], positionEnum[posSeed], Quaternion.identity);
     }
 

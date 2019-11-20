@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int lifeValue = 3;
     public int playerScore = 0;
+    public int hitCount=0;
 
-    public bool isDead;
     public bool isGameOver;
+
+    public Queue<int> cubePool;
     // character's position
     public Transform flowerTransform;
 
@@ -31,7 +33,7 @@ public class PlayerManager : MonoBehaviour
     public Text countDown;
 
     // display component
-    public Text lifeText;
+    public Text hitCountText;
     public Text scoreText;
     public Text multipulText;
     //技能点数
@@ -58,6 +60,9 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine("startCountDown");
+
+        cubePool = new Queue<int>();
+
         multiplierTrack = 0;
         multiplier = 1;
     }
@@ -65,11 +70,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (isDead)
-        {
-            Recover();
-            
-        }
+
 
         RefreshUIElement();
 
@@ -78,23 +79,11 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    private void Recover()
-    {
-        if (lifeValue <= 0)
-        {
-            isGameOver = true;
-        }
-        else 
-        { 
-            lifeValue--;
-            Instantiate(flowerPrefab);
-            isDead = false;
-        }
-    }
+
 
     private void RefreshUIElement()
     {
-        lifeText.text = lifeValue.ToString();
+        hitCountText.text = hitCount.ToString();
         scoreText.text = playerScore.ToString();
         multipulText.text = multiplier.ToString();
 
@@ -173,6 +162,8 @@ public class PlayerManager : MonoBehaviour
         if (isGameOver == true)
         {
             sumaryPanel.SetActive(true);
+            string sceneName = SceneManager.GetActiveScene().name;
+            PlayerPrefs.SetInt(sceneName, 1);
         }
 
     }

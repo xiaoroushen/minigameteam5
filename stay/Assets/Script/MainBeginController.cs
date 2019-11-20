@@ -8,7 +8,7 @@ public class MainBeginController : MonoBehaviour
     // Start is called before the first frame update
     public void GameScene()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Book");
     }
     public void SettingScene()
     {
@@ -25,5 +25,10 @@ public class MainBeginController : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("退出应用程序");
+    }
+
+    private void Start()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }
