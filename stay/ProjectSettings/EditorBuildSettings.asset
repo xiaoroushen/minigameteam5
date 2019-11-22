@@ -11,16 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Book-Page Curl/Example/scenes/Book.unity
     guid: b5ea4a9f279d37740b3ef34f42035098
-  - enabled: 0
-    path: Assets/__DELETED_GUID_Trash/7d25fb45a7814634299a363d6e207d37
-    guid: 7d25fb45a7814634299a363d6e207d37
   - enabled: 1
     path: Assets/Scenes/Game1.unity
-    guid: 7b25100abecdf7447807d3eb3c63d435
-  - enabled: 1
-    path: Assets/Scenes/Game3.unity
-    guid: f20be65be1a7ddc419330087e6a1b115
+    guid: adda98be2620bf14ba5342a8d2898180
   - enabled: 1
     path: Assets/Scenes/Game2.unity
     guid: 6b598feac992bf7458fa4d2c78497a97
+  - enabled: 1
+    path: Assets/Scenes/Game3.unity
+    guid: 75276a967b744774fa43f6f6f8e6ab5d
   m_configObjects: {}

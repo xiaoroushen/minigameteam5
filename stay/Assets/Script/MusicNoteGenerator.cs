@@ -117,7 +117,7 @@ public class MusicNoteGenerator : MonoBehaviour
             //最后一个生成后延时结束
             if (index == eventSampleTimeList.Count)
             {
-                Invoke("setGameOver", gameOverCountDown + 3);
+                Invoke("setGameOver", gameOverCountDown + 5);
             }
         }
     }
@@ -144,6 +144,7 @@ public class MusicNoteGenerator : MonoBehaviour
 
     private void setGameOver()
     {
+        Destroy(PlayerManager.Instance.flowerTransform.gameObject);
         PlayerManager.Instance.isGameOver = true;
 
     }

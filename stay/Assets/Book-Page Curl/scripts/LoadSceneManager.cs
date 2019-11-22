@@ -11,7 +11,7 @@ public class LoadSceneManager : MonoBehaviour
     public GameObject lockImage;
     public GameObject buttonObj;
     private int currentPage;
-
+    public GameObject levelEntry;
     // Update is called once per frame
     private void Start()
     {   
@@ -59,7 +59,18 @@ public class LoadSceneManager : MonoBehaviour
             buttonObj.GetComponent<Button>().interactable = true;
         }
 
+        if(currentPage==2 || currentPage==4 || currentPage == 6)
+        {
+            levelEntry.SetActive(true);
+        }
+        else
+        {
+            levelEntry.SetActive(false);
+        }
+
     }
+
+
 
 
 }

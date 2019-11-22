@@ -42,6 +42,10 @@ public class PlayerManager : MonoBehaviour
     //
     public GameObject sumaryPanel;
 
+    public Text sumSocore;
+    public Text sumary;
+ 
+
 
     //single pattern
     private static PlayerManager instance;
@@ -163,6 +167,8 @@ public class PlayerManager : MonoBehaviour
         {
             sumaryPanel.SetActive(true);
             string sceneName = SceneManager.GetActiveScene().name;
+            sumSocore.text = playerScore.ToString();
+            sumary.text = "good";
             PlayerPrefs.SetInt(sceneName, 1);
         }
 

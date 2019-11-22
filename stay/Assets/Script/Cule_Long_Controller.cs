@@ -54,7 +54,7 @@ public class Cule_Long_Controller : MonoBehaviour
         // 抬起结束触发
         if (Input.GetMouseButtonUp(0)|| (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended))
         {
-            if (canBePressed&& transform.localScale.x<=0)
+            if (canBePressed)
             {
                 gameObject.SetActive(false);
                 Instantiate(effectPrefab[0]);
