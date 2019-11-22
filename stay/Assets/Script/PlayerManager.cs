@@ -6,13 +6,11 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     public int playerScore = 0;
     public int hitCount=0;
 
     public bool isGameOver;
 
-    public Queue<int> cubePool;
     // character's position
     public Transform flowerTransform;
 
@@ -28,6 +26,12 @@ public class PlayerManager : MonoBehaviour
     public int multiplierTrack;
     public int[] multiplierThresHold;
 
+    // position controll variable
+    private bool isInEdgeArea;
+    private int centreAreaCount;
+    private int edgeAreaCount;
+    private float centreArearate;
+
     //countdown variable
     public float sumTime;
     public Text countDown;
@@ -35,12 +39,22 @@ public class PlayerManager : MonoBehaviour
     // display component
     public Text hitCountText;
     public Text scoreText;
-    public Text multipulText;
-    //技能点数
+    public Text positionText;
+
+
+    //cube对象队列
+    public Queue<int> cubePool;
+    //技能点数long_cube
     public int skillNum;
+
+
 
     //
     public GameObject sumaryPanel;
+
+    public SpriteRenderer positionStar;
+    public SpriteRenderer rhythmStar;
+    public SpriteRenderer hitStar;
 
     public Text sumSocore;
     public Text sumary;
@@ -74,11 +88,14 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-
+        UpdatePositionState();
+        CalculatePosition();
 
         RefreshUIElement();
 
         ShowSummaryPanel();
+
+
 
 
     }
@@ -89,7 +106,7 @@ public class PlayerManager : MonoBehaviour
     {
         hitCountText.text = hitCount.ToString();
         scoreText.text = playerScore.ToString();
-        multipulText.text = multiplier.ToString();
+        positionText.text = centreArearate.ToString();
 
     }
 
@@ -169,9 +186,58 @@ public class PlayerManager : MonoBehaviour
             string sceneName = SceneManager.GetActiveScene().name;
             sumSocore.text = playerScore.ToString();
             sumary.text = "good";
+            Debug.Log(centreArearate);
             PlayerPrefs.SetInt(sceneName, 1);
         }
 
     }
+    //计算当前位置
+    private void CalculatePosition()
+    {
+        if (!isInEdgeArea)
+        {
+            centreAreaCount++;
+        }
+        else
+        {
+            edgeAreaCount++;
+        }
+        centreArearate = centreAreaCount * 1.0f / (edgeAreaCount+ centreAreaCount);
+    }
+
+    private void UpdatePositionState()
+    {
+        if (flowerTransform)
+        {
+            if (flowerTransform.position.magnitude < 1)
+            {
+                Debug.Log("在边缘");
+                isInEdgeArea = false;
+            }
+            else
+            {
+                Debug.Log("在中心");
+                isInEdgeArea = true;
+            }
+
+        }
+    }
+
+    private void CalculateStarDisPlay()
+    {
+        if (centreArearate>0.5)
+        {
+            positionStar.color = new Color(positionStar.color.r, positionStar.color.g, positionStar.color.b, 0.25f);
+        }
+        if (hitCount<20)
+        {
+            rhythmStar.color = new Color(rhythmStar.color.r, rhythmStar.color.g, rhythmStar.color.b, 0.25f);
+        }
+        if (playerScore > 10000)
+        {
+            hitStar.color = new Color(hitStar.color.r, hitStar.color.g, hitStar.color.b, 0.25f);
+        }
+    }
+
 
 }

@@ -74,7 +74,7 @@ public class MusicNoteGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        LoadSystemVolume();
         if (timeLeftToBegin > 0)
         {
             timeLeftToBegin -= Time.deltaTime;
@@ -192,6 +192,14 @@ public class MusicNoteGenerator : MonoBehaviour
         int fishType = fishTypeQueue.Dequeue();
         posSeed = (posSeed+1) % positionEnum.Count;
         Instantiate(fishPrefab[fishType], positionEnum[posSeed], Quaternion.identity);
+    }
+
+    private void LoadSystemVolume()
+    {
+        if (PlayerPrefs.HasKey("volume"))
+        {
+            myAudioSource.volume = PlayerPrefs.GetFloat("volume");
+        }
     }
 
 }

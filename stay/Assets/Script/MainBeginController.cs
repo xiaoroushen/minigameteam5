@@ -2,22 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainBeginController : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject SystemPanel;
+    public GameObject MainPanel;
+    public Slider volumeSlider;
+
     public void GameScene()
     {
         SceneManager.LoadScene("Book");
     }
     public void SettingScene()
     {
-        SceneManager.LoadScene("SettingUI");
+        MainPanel.SetActive(false);
+        SystemPanel.SetActive(true);
+        if (PlayerPrefs.HasKey("volume"))
+        {
+            volumeSlider.value = PlayerPrefs.GetFloat("volume");
+        }
+
     }
 
     public void IntroduceScene()
     {
-        SceneManager.LoadScene("IntroduceUI");
         Debug.Log("游戏规则/背景介绍");
     }
 
@@ -29,6 +39,7 @@ public class MainBeginController : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.DeleteAll();
     }
+
+    
 }

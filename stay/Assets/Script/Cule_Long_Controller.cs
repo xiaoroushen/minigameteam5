@@ -33,21 +33,7 @@ public class Cule_Long_Controller : MonoBehaviour
             {   
                 //按下减少长条常数函数
                 DecreaseCubeLength();
-                //if (Mathf.Abs(transform.position.x - 3.3f) < 0.05)
-                //{
-                //    //Instantiate(effectPrefab[0]);
-                //    PlayerManager.Instance.GetPerfectNote();
-                //}
-                //else if (Mathf.Abs(transform.position.x - 3.3f) < 0.2)
-                //{
-                //    //Instantiate(effectPrefab[1]);
-                //    PlayerManager.Instance.GetGoodNote();
-                //}
-                //else
-                //{
-                //    //Instantiate(effectPrefab[2]);
-                //    PlayerManager.Instance.GetNormalNote();
-                //}
+
 
             }
         }
@@ -63,6 +49,7 @@ public class Cule_Long_Controller : MonoBehaviour
         }
 
         DestroyGameObj();
+        CheckSkillNum();
     }
     private void FixedUpdate()
     {
@@ -108,8 +95,21 @@ public class Cule_Long_Controller : MonoBehaviour
     private void DestroyGameObj()
     {
         if (transform.position.x > 5.66)
-        {
+        {     
             Destroy(gameObject);
         }
+    }
+
+    //如何没有释放技能，去除技能点
+    private void CheckSkillNum()
+    {
+        if (transform.position.x > 4.5)
+        {
+            if (PlayerManager.Instance.skillNum > 0)
+            {
+                PlayerManager.Instance.skillNum--;
+            }
+        }
+
     }
 }
