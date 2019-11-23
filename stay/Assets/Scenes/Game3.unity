@@ -3412,7 +3412,9 @@ MonoBehaviour:
   positionText: {fileID: 1843048564}
   skillNum: 0
   sumaryPanel: {fileID: 1797041943}
-  sumSocore: {fileID: 255213991}
+  positionStar: {fileID: 0}
+  rhythmStar: {fileID: 0}
+  hitStar: {fileID: 0}
   sumary: {fileID: 505276433}
 --- !u!4 &1878913972
 Transform:
@@ -3517,9 +3519,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeLeftToBegin: 0
-  delayTime: 0.21
+  delayTime: 0
   countDown: 3
   eventID: SummerKoreographyTrack
+  isAccNote: 0
+  accRate: 1.5
   cubePrefab:
   - {fileID: 2995608969307518417, guid: e6b99cb5c629d424d9cd0e118374e5f1, type: 3}
   - {fileID: 5302979051922412380, guid: bd8066c7dd492764daa46e9883421a19, type: 3}

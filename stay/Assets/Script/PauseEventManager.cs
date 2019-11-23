@@ -27,6 +27,7 @@ public class PauseEventManager : MonoBehaviour
     {
         Time.timeScale = 1;
         anim.SetBool("IsPause", false);
+        audioSource.UnPause();
         Debug.Log("unpause");
     }
 
@@ -38,7 +39,6 @@ public class PauseEventManager : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1;
-        audioSource.UnPause();
         string sceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(sceneName);
     }

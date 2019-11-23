@@ -3412,7 +3412,9 @@ MonoBehaviour:
   positionText: {fileID: 1843048564}
   skillNum: 0
   sumaryPanel: {fileID: 1797041943}
-  sumSocore: {fileID: 255213991}
+  positionStar: {fileID: 0}
+  rhythmStar: {fileID: 0}
+  hitStar: {fileID: 0}
   sumary: {fileID: 505276433}
 --- !u!4 &1878913972
 Transform:
@@ -3517,7 +3519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeLeftToBegin: 0
-  delayTime: 0.21
+  delayTime: 0
   countDown: 3
   eventID: Halfmoon_SerenadeTrack
   cubePrefab:

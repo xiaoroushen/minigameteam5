@@ -41,14 +41,17 @@ public class Map : MonoBehaviour
         if (!PlayerManager.Instance.isGameOver&&PlayerManager.Instance.sumTime<=0) 
         {   
 
-                Debug.Log(PlayerManager.Instance.sumTime);
-                if(EventSystem.current.IsPointerOverGameObject())
-                {
-                    return;
-                }
-
-                Vector3 mousePositionInWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                GameObject wave = Instantiate(resPrefabs[1], new Vector3(mousePositionInWorld.x, mousePositionInWorld.y, 0), Quaternion.identity);
+            Debug.Log(PlayerManager.Instance.sumTime);
+            //if(EventSystem.current.IsPointerOverGameObject())
+            //{
+            //    return;
+            //}
+            if (PlayerManager.Instance.IsPointerOverUIObject(new Vector2(Input.mousePosition.x, Input.mousePosition.y)))
+            {
+                return;
+            }
+            Vector3 mousePositionInWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            GameObject wave = Instantiate(resPrefabs[1], new Vector3(mousePositionInWorld.x, mousePositionInWorld.y, 0), Quaternion.identity);
          
         }
         
@@ -111,7 +114,6 @@ public class Map : MonoBehaviour
         angle = Vector2.Angle(from, to);
         return cross.z > 0 ? -angle : angle;
     }
-
 
 
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CubeController : MonoBehaviour
 {
-    public int moveSpeed;
+    public float moveSpeed=1;
     private bool canBePressed;
     private bool isEliminate;
     //0 perfect 1 good 2 normal 3 miss
@@ -20,12 +20,17 @@ public class CubeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)||( Input.touchCount>0 && Input.GetTouch(0).phase == TouchPhase.Began))
+        if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
-            if (canBePressed&& (PlayerManager.Instance.cubePool.Peek() == gameObject.GetInstanceID()))
+            if (PlayerManager.Instance.IsPointerOverUIObject(new Vector2(Input.mousePosition.x, Input.mousePosition.y)))
             {
+                return;
+            }
+            if (canBePressed && (PlayerManager.Instance.cubePool.Peek() == gameObject.GetInstanceID()))
+            {   
+
                 Invoke("DequeGameObject", Time.deltaTime);//在下一帧之前出队列
-                
+
                 isEliminate = true;
                 mapPrefab.GetComponent<Map>().CreateWave();
                 gameObject.SetActive(false);
@@ -48,7 +53,6 @@ public class CubeController : MonoBehaviour
             }
         }
 
-
         DestroyGameObj();
     }
 
@@ -68,7 +72,7 @@ public class CubeController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.tag == "PressZone")
+        if (collision.tag == "PressZone")
         {
             canBePressed = false;
             if (!isEliminate)
@@ -83,7 +87,7 @@ public class CubeController : MonoBehaviour
 
     private void DestroyGameObj()
     {
-        if(transform.position.x> 5.66)
+        if (transform.position.x > 5.66)
         {
             Destroy(gameObject);
         }
@@ -93,4 +97,5 @@ public class CubeController : MonoBehaviour
     {
         PlayerManager.Instance.cubePool.Dequeue();
     }
+
 }

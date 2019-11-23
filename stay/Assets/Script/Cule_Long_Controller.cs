@@ -6,7 +6,7 @@ public class Cule_Long_Controller : MonoBehaviour
 {
     // Start is called before the first frame update
     public float moveSpeed;
-    private float currentSpeed;
+    public float currentSpeed;
     private bool canBePressed;
     public float lengthOfTime;
 
@@ -28,7 +28,10 @@ public class Cule_Long_Controller : MonoBehaviour
     {
         if (Input.GetMouseButton(0)||(Input.touchCount>0&&Input.GetTouch(0).phase==TouchPhase.Moved))
         {
-
+            if (PlayerManager.Instance.IsPointerOverUIObject(new Vector2(Input.mousePosition.x, Input.mousePosition.y)))
+            {
+                return;
+            }
             if (canBePressed)
             {   
                 //按下减少长条常数函数

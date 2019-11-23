@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -56,7 +57,6 @@ public class PlayerManager : MonoBehaviour
     public SpriteRenderer rhythmStar;
     public SpriteRenderer hitStar;
 
-    public Text sumSocore;
     public Text sumary;
  
 
@@ -184,7 +184,6 @@ public class PlayerManager : MonoBehaviour
         {
             sumaryPanel.SetActive(true);
             string sceneName = SceneManager.GetActiveScene().name;
-            sumSocore.text = playerScore.ToString();
             sumary.text = "good";
             Debug.Log(centreArearate);
             PlayerPrefs.SetInt(sceneName, 1);
@@ -237,6 +236,16 @@ public class PlayerManager : MonoBehaviour
         {
             hitStar.color = new Color(hitStar.color.r, hitStar.color.g, hitStar.color.b, 0.25f);
         }
+    }
+
+    public bool IsPointerOverUIObject(Vector2 screenPosition)
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(screenPosition.x, screenPosition.y);
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 
 

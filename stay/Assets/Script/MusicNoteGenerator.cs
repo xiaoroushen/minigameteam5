@@ -27,8 +27,9 @@ public class MusicNoteGenerator : MonoBehaviour
     public string eventID;
     private Koreography playingKoreo;
     private int sampleRate;
-
-
+    
+    public bool isAccNote;
+    public float accRate;
 
     //自定义二元数据结构
     struct TwoDData
@@ -45,6 +46,7 @@ public class MusicNoteGenerator : MonoBehaviour
     private AudioSource myAudioSource;
     //cubePrefab 0是小cube 1是长cube
     public GameObject[] cubePrefab;
+
     //fish的prefab 0是单个 1是单排 2是多排
     public GameObject[] fishPrefab;
     private void Awake()
@@ -110,8 +112,23 @@ public class MusicNoteGenerator : MonoBehaviour
         if ( index < eventSampleTimeList.Count && Time.timeSinceLevelLoad * sampleRate > eventSampleTimeList[index].beginTime )
         {   
             int cubeType= eventSampleTimeList[index].typeEnum>0 ?1:0;
-            fishTypeQueue.Enqueue(cubeType);
-            Instantiate(cubePrefab[cubeType]);
+            fishTypeQueue.Enqueue(eventSampleTimeList[index].typeEnum);
+
+            GameObject Noteobj =  Instantiate(cubePrefab[cubeType]);
+            if (isAccNote)
+            {
+                if (cubeType == 0)
+                {
+                    Noteobj.GetComponent<CubeController>().moveSpeed = 1*accRate;
+                }
+                else
+                {
+                    Noteobj.GetComponent<Cule_Long_Controller>().moveSpeed =1*accRate;
+                    Noteobj.GetComponent<Cule_Long_Controller>().currentSpeed = Noteobj.GetComponent<Cule_Long_Controller>().moveSpeed;
+                }
+            }
+            
+
             Invoke("GenerateFish", fishDelayTime);
             index++;
             //最后一个生成后延时结束
@@ -173,7 +190,16 @@ public class MusicNoteGenerator : MonoBehaviour
 
     private void InitTimeLeftToBegin()
     {
-        earlyTime = (3.3f - cubePrefab[0].transform.position.x) / cubePrefab[0].GetComponent<CubeController>().moveSpeed;
+        Debug.Log(cubePrefab[0].GetComponent<CubeController>().moveSpeed);
+        if (!isAccNote)
+        {
+            earlyTime = (3.3f - cubePrefab[0].transform.position.x) / cubePrefab[0].GetComponent<CubeController>().moveSpeed;
+        }
+        else
+        {
+            earlyTime = (3.3f - cubePrefab[0].transform.position.x) / (cubePrefab[0].GetComponent<CubeController>().moveSpeed*accRate);
+        }
+        
         timeLeftToBegin = earlyTime - delayTime;
         gameOverCountDown = timeLeftToBegin;
         Debug.Log(timeLeftToBegin);
