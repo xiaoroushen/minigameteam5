@@ -10,6 +10,7 @@ public class AutoFlip : MonoBehaviour {
     public Book ControledBook;
     public int AnimationFramesCount = 40;
     bool isFlipping = false;
+
     // Use this for initialization
     void Start () {
         if (!ControledBook)
@@ -44,6 +45,10 @@ public class AutoFlip : MonoBehaviour {
         if (isFlipping) return;
         if (ControledBook.currentPage <= 0) return;
         isFlipping = true;
+        if (ControledBook.currentPage == 2)
+        {
+                ControledBook.leftPage.SetActive(false);
+        }
         float frameTime = PageFlipTime / AnimationFramesCount;
         float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
         float xl = ((ControledBook.EndBottomRight.x - ControledBook.EndBottomLeft.x) / 2) * 0.9f;

@@ -47,6 +47,8 @@ public class Book : MonoBehaviour {
     public Image RightNext;
     public UnityEvent OnFlip;
     float radius1, radius2;
+
+    public GameObject leftPage;
     //Spine Bottom
     Vector3 sb;
     //Spine Top
@@ -95,6 +97,11 @@ public class Book : MonoBehaviour {
         Shadow.rectTransform.sizeDelta = new Vector2(scaledPageWidth, scaledPageHeight + scaledPageWidth * 0.6f);
         ShadowLTR.rectTransform.sizeDelta = new Vector2(scaledPageWidth, scaledPageHeight + scaledPageWidth * 0.6f);
         NextPageClip.rectTransform.sizeDelta = new Vector2(scaledPageWidth, scaledPageHeight + scaledPageWidth * 0.6f);
+
+        if (currentPage != 0)
+        {
+            leftPage.SetActive(true);
+        }
     }
     public Vector3 transformPoint(Vector3 global)
     {
@@ -108,6 +115,8 @@ public class Book : MonoBehaviour {
         {
             UpdateBook();
         }
+
+
         //Debug.Log("mouse local pos:" + transformPoint(Input.mousePosition));
         //Debug.Log("mouse  pos:" + Input.mousePosition);
     }
@@ -344,9 +353,19 @@ public class Book : MonoBehaviour {
     void Flip()
     {
         if (mode == FlipMode.RightToLeft)
+        {
             currentPage += 2;
+            if (currentPage == 2)
+            {
+                leftPage.SetActive(true);
+            }
+        }
+
         else
+        {
             currentPage -= 2;
+        }
+
         LeftNext.transform.SetParent(BookPanel.transform, true);
         Left.transform.SetParent(BookPanel.transform, true);
         LeftNext.transform.SetParent(BookPanel.transform, true);

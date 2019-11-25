@@ -185,6 +185,7 @@ public class PlayerManager : MonoBehaviour
             sumaryPanel.SetActive(true);
             string sceneName = SceneManager.GetActiveScene().name;
             sumary.text = "good";
+            CalculateStarDisPlay();
             Debug.Log(centreArearate);
             PlayerPrefs.SetInt(sceneName, 1);
         }

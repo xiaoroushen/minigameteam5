@@ -106,7 +106,10 @@ public class Fish_Group_Controller : MonoBehaviour
         groupDismiss = true;
         for (int i = 0;i< subFishList.Count;i++)
         {
-            subFishList[i].GetComponent<Fish>().isFishGroupState = false;
+            if (subFishList[i])
+            {
+                subFishList[i].GetComponent<Fish>().isFishGroupState = false;
+            }
         }
  
     }

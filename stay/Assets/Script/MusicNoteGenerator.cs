@@ -173,9 +173,9 @@ public class MusicNoteGenerator : MonoBehaviour
         positionEnum.Add(new Vector3(-10, -5, 0));
         positionEnum.Add(new Vector3(10, -5, 0));
 
-        positionEnum.Add(new Vector3(0, 9.7f, 0));
+        positionEnum.Add(new Vector3(0, 10.2f, 0));
         positionEnum.Add(new Vector3(-11, 0, 0));
-        positionEnum.Add(new Vector3(0, -9.7f, 0));
+        positionEnum.Add(new Vector3(0, -10.2f, 0));
         positionEnum.Add(new Vector3(11, 0, 0));
 
         positionEnum.Add(new Vector3(-6.33f, 7.45f, 0));

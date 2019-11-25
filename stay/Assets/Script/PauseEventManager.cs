@@ -33,6 +33,7 @@ public class PauseEventManager : MonoBehaviour
 
     public void Home()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("MainUI");
     }
 

@@ -3519,10 +3519,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeLeftToBegin: 0
-  delayTime: 0
+  delayTime: 0.21
   countDown: 3
   eventID: SummerKoreographyTrack
-  isAccNote: 0
+  isAccNote: 1
   accRate: 1.5
   cubePrefab:
   - {fileID: 2995608969307518417, guid: e6b99cb5c629d424d9cd0e118374e5f1, type: 3}

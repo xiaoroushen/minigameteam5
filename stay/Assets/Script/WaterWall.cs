@@ -13,11 +13,14 @@ public class WaterWall : MonoBehaviour
     private float currentLV;
     //墙的初始厚度
     private float originScaleOfY;
+    //相对矢量
+    private Vector3 relativePosition;
 
     private void Awake()
     {
         originScaleOfY = transform.localScale.y;
         currentLV = lifeValue;
+        relativePosition = transform.position - transform.GetChild(0).position;
     }
     void Start()
     {
@@ -56,6 +59,11 @@ public class WaterWall : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void updatePosition(Vector3 startPositin)
+    {
+        transform.position = relativePosition + startPositin;
     }
 
 }

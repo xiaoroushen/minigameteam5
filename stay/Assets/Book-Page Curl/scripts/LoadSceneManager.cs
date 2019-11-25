@@ -29,6 +29,7 @@ public class LoadSceneManager : MonoBehaviour
     public void LoadGameScene()
     {
         PlayerPrefs.SetInt("currentPage", currentPage);
+
         SceneManager.LoadScene("Game"+ currentPage/2);
         
     }
