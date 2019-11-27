@@ -11,10 +11,6 @@ public class Map : MonoBehaviour
     void Start()
     {
         InitMapPrefabs();
-        //InvokeRepeating("createFish", 8, 8);
-
-        //测试场景切换
-       // Invoke("TestScene", 2);
 
     }
 
@@ -119,8 +115,5 @@ public class Map : MonoBehaviour
 
 
 
-    private void TestScene()
-    {
-        SceneManager.LoadScene("Book");
-    }
+
 }

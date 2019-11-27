@@ -9,7 +9,7 @@ public class SummaryButtonEvent : MonoBehaviour
     public void Restart()
     {
         string sceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadSceneAsync(sceneName);
     }
 
     // Update is called once per frame
@@ -18,11 +18,11 @@ public class SummaryButtonEvent : MonoBehaviour
         //记录当前通关场景playerprefab对象持久化
 
 
-        SceneManager.LoadScene("Book");
+        SceneManager.LoadSceneAsync("Book");
     }
 
     public void Home()
     {
-        SceneManager.LoadScene("MainUI");
+        SceneManager.LoadSceneAsync("MainUI");
     }
 }

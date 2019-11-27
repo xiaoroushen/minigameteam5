@@ -11,26 +11,36 @@ public class LoadSceneManager : MonoBehaviour
     public GameObject lockImage;
     public GameObject buttonObj;
     private int currentPage;
-    public GameObject levelEntry;
+    public AudioSource pianoSource;
+    public GameObject levelButton;
+    private bool isCheckButton;
+    public Transform position1;
+
+    public Transform position2;
+
+    public Transform position3;
     // Update is called once per frame
     private void Start()
-    {   
+    { 
         if(PlayerPrefs.HasKey("currentPage"))
         {
             transform.GetChild(0).gameObject.GetComponent<Book>().currentPage = PlayerPrefs.GetInt("currentPage", currentPage);
         }
 
-        
+
+
     }
     void Update()
     {
         UpdateLockStatus();
+        UpdateButtonPosition();
     }
     public void LoadGameScene()
     {
+        pianoSource.Play();
+       
         PlayerPrefs.SetInt("currentPage", currentPage);
-
-        SceneManager.LoadScene("Game"+ currentPage/2);
+        SceneManager.LoadSceneAsync("Game"+ currentPage/2);
         
     }
 
@@ -41,37 +51,73 @@ public class LoadSceneManager : MonoBehaviour
         {
             if (PlayerPrefs.GetInt("Game" + currentPage/2) == 1)
             {
-                Debug.Log("123");
                 lockImage.SetActive(false);
                 buttonObj.GetComponent<Button>().interactable = true;
             }
             else
             {
-                Debug.Log("456");
-                lockImage.SetActive(true);
-                buttonObj.GetComponent<Button>().interactable = false;
+                //lockImage.SetActive(true);
+                //buttonObj.GetComponent<Button>().interactable = false;
             }
 
         }
         else
         {
-            Debug.Log("123");
             lockImage.SetActive(false);
             buttonObj.GetComponent<Button>().interactable = true;
         }
 
-        if(currentPage==2 || currentPage==4 || currentPage == 6)
+        if (!isCheckButton)
         {
-            levelEntry.SetActive(true);
+            CheckNewEntry();
+            isCheckButton = true;
         }
-        else
+
+
+
+
+    }
+
+    private void UpdateButtonPosition()
+    {
+        switch (currentPage)
         {
-            levelEntry.SetActive(false);
+            case 2:
+                levelButton.transform.position = position1.position;
+                Debug.Log("2");
+                break;
+            case 4:
+                levelButton.transform.position = position2.position;
+                Debug.Log("4");
+                break;
+            case 6:
+                levelButton.transform.position = position3.position;
+                Debug.Log("6");
+                break;
+            default:
+                break;
+
         }
 
     }
 
+    private void CheckNewEntry()
+    {
+        Debug.Log(currentPage == 2 || currentPage == 4 || currentPage == 6);
+        if (currentPage == 2 || currentPage == 4 || currentPage == 6)
+        {
+            Invoke("SetEntryActive", 2);
+        }
+    }
 
+    private void SetEntryActive()
+    {
+        levelButton.SetActive(true);
+    }
 
+    public void LoadMainUI()
+    {
+        SceneManager.LoadSceneAsync("MainUI");
+    }
 
 }

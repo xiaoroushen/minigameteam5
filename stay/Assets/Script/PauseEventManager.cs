@@ -34,14 +34,14 @@ public class PauseEventManager : MonoBehaviour
     public void Home()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("MainUI");
+        SceneManager.LoadSceneAsync("MainUI");
     }
 
     public void Restart()
     {
         Time.timeScale = 1;
         string sceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadSceneAsync(sceneName);
     }
 
 

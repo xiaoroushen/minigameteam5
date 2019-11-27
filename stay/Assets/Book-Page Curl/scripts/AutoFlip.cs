@@ -9,6 +9,8 @@ public class AutoFlip : MonoBehaviour {
     public bool AutoStartFlip=true;
     public Book ControledBook;
     public int AnimationFramesCount = 40;
+    public AudioSource myAudioSource;
+    public GameObject levelEnter;
     bool isFlipping = false;
 
     // Use this for initialization
@@ -32,6 +34,8 @@ public class AutoFlip : MonoBehaviour {
         if (isFlipping) return;
         if (ControledBook.currentPage >= ControledBook.TotalPageCount) return;
         isFlipping = true;
+        levelEnter.SetActive(false);
+        myAudioSource.Play();
         float frameTime = PageFlipTime / AnimationFramesCount;
         float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
         float xl = ((ControledBook.EndBottomRight.x - ControledBook.EndBottomLeft.x) / 2) * 0.9f;
@@ -39,12 +43,18 @@ public class AutoFlip : MonoBehaviour {
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
         float dx = (xl)*2 / AnimationFramesCount;
         StartCoroutine(FlipRTL(xc, xl, h, frameTime, dx));
+        if(ControledBook.currentPage != 6)
+        {
+            Invoke("SetEntryActive", 2);
+        }
     }
     public void FlipLeftPage()
     {
         if (isFlipping) return;
         if (ControledBook.currentPage <= 0) return;
         isFlipping = true;
+        levelEnter.SetActive(false);
+        myAudioSource.Play();
         if (ControledBook.currentPage == 2)
         {
                 ControledBook.leftPage.SetActive(false);
@@ -56,6 +66,10 @@ public class AutoFlip : MonoBehaviour {
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
         float dx = (xl) * 2 / AnimationFramesCount;
         StartCoroutine(FlipLTR(xc, xl, h, frameTime, dx));
+        if(ControledBook.currentPage != 2)
+        {
+            Invoke("SetEntryActive", 2);
+        }
     }
     IEnumerator FlipToEnd()
     {
@@ -126,5 +140,10 @@ public class AutoFlip : MonoBehaviour {
             x += dx;
         }
         ControledBook.ReleasePage();
+    }
+
+    private void SetEntryActive()
+    {
+        levelEnter.SetActive(true);
     }
 }

@@ -48,6 +48,8 @@ public class PlayerManager : MonoBehaviour
     //技能点数long_cube
     public int skillNum;
 
+    private int evaluateCount;
+
 
 
     //
@@ -70,6 +72,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
+        evaluateCount = 0;
         Instance = this;
     }
 
@@ -184,7 +187,6 @@ public class PlayerManager : MonoBehaviour
         {
             sumaryPanel.SetActive(true);
             string sceneName = SceneManager.GetActiveScene().name;
-            sumary.text = "good";
             CalculateStarDisPlay();
             Debug.Log(centreArearate);
             PlayerPrefs.SetInt(sceneName, 1);
@@ -211,12 +213,10 @@ public class PlayerManager : MonoBehaviour
         {
             if (flowerTransform.position.magnitude < 1)
             {
-                Debug.Log("在边缘");
                 isInEdgeArea = false;
             }
             else
             {
-                Debug.Log("在中心");
                 isInEdgeArea = true;
             }
 
@@ -228,14 +228,34 @@ public class PlayerManager : MonoBehaviour
         if (centreArearate>0.5)
         {
             positionStar.color = new Color(positionStar.color.r, positionStar.color.g, positionStar.color.b, 0.25f);
+            evaluateCount++;
         }
         if (hitCount<20)
         {
             rhythmStar.color = new Color(rhythmStar.color.r, rhythmStar.color.g, rhythmStar.color.b, 0.25f);
+            evaluateCount++;
         }
         if (playerScore > 10000)
         {
             hitStar.color = new Color(hitStar.color.r, hitStar.color.g, hitStar.color.b, 0.25f);
+            evaluateCount++;
+        }
+        switch (evaluateCount)
+        {
+            case 3:
+                sumary.text = "优秀";
+                break;
+            case 2:
+                sumary.text = "良好";
+                break;
+            case 1:
+                sumary.text = "中等";
+                break;
+            case 0:
+                sumary.text = "还需努力";
+                break;
+            default:
+                break;
         }
     }
 

@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6dde48549f2d2a24191a2b8f5d6fdb7a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
+  currentSpeed: 0
   lengthOfTime: 0.5
   effectPrefab:
   - {fileID: 2598112116508920952, guid: 018a54e69c3bd2140a2dc9073f88991f, type: 3}

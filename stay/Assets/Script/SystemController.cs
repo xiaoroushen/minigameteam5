@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class SystemController : MonoBehaviour
 {
     public Slider musicSlider;
-    public GameObject MainPanel;
-
+    public GameObject mainPanel;
+    public GameObject rulePanel;
+    public AudioSource buttonAudioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,7 @@ public class SystemController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void RefreshUserCache()
@@ -32,8 +33,16 @@ public class SystemController : MonoBehaviour
 
     public void Back()
     {
+        buttonAudioSource.Play();
         StorageCurrentMusic();
         gameObject.SetActive(false);
-        MainPanel.SetActive(true);
+        mainPanel.SetActive(true);
+    }
+
+    public void BackMain()
+    {
+        buttonAudioSource.Play();
+        rulePanel.SetActive(false);
+        mainPanel.SetActive(true);
     }
 }

@@ -29,7 +29,8 @@ public class Initialize : MonoBehaviour
 
     public void EndThisPlay()
     {
-        SceneManager.LoadScene("MainUI");
+        SceneManager.LoadSceneAsync("MainUI");
+
     }
 
 
