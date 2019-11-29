@@ -12,7 +12,6 @@ public class SystemController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -23,6 +22,7 @@ public class SystemController : MonoBehaviour
 
     public void RefreshUserCache()
     {
+        buttonAudioSource.Play();
         PlayerPrefs.DeleteAll();
     }
 
@@ -45,4 +45,19 @@ public class SystemController : MonoBehaviour
         rulePanel.SetActive(false);
         mainPanel.SetActive(true);
     }
+
+    public void ReleseAllLevel()
+    {
+        buttonAudioSource.Play();
+        PlayerPrefs.SetInt("Game1", 1);
+        PlayerPrefs.SetInt("Game2", 1);
+        PlayerPrefs.SetInt("Game3", 1);
+        PlayerPrefs.SetInt("Game4", 1);
+    }
+
+    public void PlayVoice()
+    {
+        buttonAudioSource.Play();
+    }
+
 }

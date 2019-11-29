@@ -91,7 +91,11 @@ public class Cule_Long_Controller : MonoBehaviour
         if (transform.localScale.x > 0)
         {
             transform.localScale = new Vector3(transform.localScale.x - moveSpeed * Time.deltaTime, transform.localScale.y, transform.localScale.z);
-        }      
+
+        }else if(transform.localScale.x < 0)
+        {
+            transform.localScale = new Vector3(0, transform.localScale.y, transform.localScale.z);
+        }     
         currentSpeed = moveSpeed / 2;
     }
 

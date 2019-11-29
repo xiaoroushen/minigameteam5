@@ -70,7 +70,6 @@ public class MusicNoteGenerator : MonoBehaviour
     void Start()
     {
         CountDown();
-        Debug.Log(Time.timeSinceLevelLoad);
     }
 
     // Update is called once per frame
@@ -134,7 +133,7 @@ public class MusicNoteGenerator : MonoBehaviour
             //最后一个生成后延时结束
             if (index == eventSampleTimeList.Count)
             {
-                Invoke("setGameOver", gameOverCountDown + 5);
+                Invoke("setGameOver", gameOverCountDown + 7);
             }
         }
     }
@@ -174,14 +173,14 @@ public class MusicNoteGenerator : MonoBehaviour
         positionEnum.Add(new Vector3(10, -5, 0));
 
         positionEnum.Add(new Vector3(0, 10.2f, 0));
-        positionEnum.Add(new Vector3(-11, 0, 0));
+        positionEnum.Add(new Vector3(-11.3f, 0, 0));
         positionEnum.Add(new Vector3(0, -10.2f, 0));
-        positionEnum.Add(new Vector3(11, 0, 0));
+        positionEnum.Add(new Vector3(11.3f, 0, 0));
 
-        positionEnum.Add(new Vector3(-6.33f, 7.45f, 0));
-        positionEnum.Add(new Vector3(-6.33f, -7.45f, 0));
-        positionEnum.Add(new Vector3(6.33f, -7.45f, 0));
-        positionEnum.Add(new Vector3(6.33f, 7.45f, 0));
+        positionEnum.Add(new Vector3(-6.33f, 8f, 0));
+        positionEnum.Add(new Vector3(-6.33f, -8f, 0));
+        positionEnum.Add(new Vector3(6.33f, -8f, 0));
+        positionEnum.Add(new Vector3(6.33f, 8f, 0));
         //positionEnum.Add(new Vector3(0, 9.7f, 0));
         //positionEnum.Add(new Vector3(-6.33f, 7.45f, 0));
         //positionEnum.Add(new Vector3(11, 0, 0));
@@ -217,6 +216,10 @@ public class MusicNoteGenerator : MonoBehaviour
     {
         int fishType = fishTypeQueue.Dequeue();
         posSeed = (posSeed+1) % positionEnum.Count;
+        if (fishType>0&&(posSeed==4||posSeed==6))
+        {
+            posSeed++;
+        }
         Instantiate(fishPrefab[fishType], positionEnum[posSeed], Quaternion.identity);
     }
 

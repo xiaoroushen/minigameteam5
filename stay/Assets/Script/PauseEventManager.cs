@@ -10,6 +10,7 @@ public class PauseEventManager : MonoBehaviour
 
     public AudioSource audioSource;
     public GameObject button;
+    public AudioSource buttonAS;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -17,7 +18,7 @@ public class PauseEventManager : MonoBehaviour
     }
     public void Pause()
     {
-
+        buttonAS.Play();
         anim.SetBool("IsPause", true);
        
         button.SetActive(false);
@@ -25,6 +26,7 @@ public class PauseEventManager : MonoBehaviour
 
     public void unPause()
     {
+        buttonAS.Play();
         Time.timeScale = 1;
         anim.SetBool("IsPause", false);
         audioSource.UnPause();
@@ -33,15 +35,16 @@ public class PauseEventManager : MonoBehaviour
 
     public void Home()
     {
+        buttonAS.Play();
         Time.timeScale = 1;
-        SceneManager.LoadSceneAsync("MainUI");
+        Invoke("LoadHome", 0.4f);
     }
 
     public void Restart()
     {
+        buttonAS.Play();
         Time.timeScale = 1;
-        string sceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadSceneAsync(sceneName);
+        Invoke("RestartButton", 0.4f);
     }
 
 
@@ -56,5 +59,16 @@ public class PauseEventManager : MonoBehaviour
     {
         
         button.SetActive(true);
+    }
+
+    private void RestartButton()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadSceneAsync(sceneName);
+    }
+
+    private void LoadHome()
+    {
+        SceneManager.LoadSceneAsync("MainUI");
     }
 }

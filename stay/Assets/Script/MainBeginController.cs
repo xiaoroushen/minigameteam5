@@ -12,6 +12,7 @@ public class MainBeginController : MonoBehaviour
     public GameObject RulePanel;
     public Slider volumeSlider;
     private AudioSource buttonAudioSource;
+    public AudioSource backgroundMusic;
 
     private void Awake()
     {
@@ -54,5 +55,10 @@ public class MainBeginController : MonoBehaviour
         SceneManager.LoadSceneAsync("Book");
     }
 
+
+    public void AdjustVolume()
+    {
+        backgroundMusic.volume = volumeSlider.value;
+    }
     
 }

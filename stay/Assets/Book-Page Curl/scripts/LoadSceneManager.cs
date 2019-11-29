@@ -14,11 +14,17 @@ public class LoadSceneManager : MonoBehaviour
     public AudioSource pianoSource;
     public GameObject levelButton;
     private bool isCheckButton;
+
+    public GameObject level4Button1;
+    public GameObject level4Button2;
+
     public Transform position1;
 
     public Transform position2;
 
     public Transform position3;
+
+    public AudioSource buttonAs;
     // Update is called once per frame
     private void Start()
     { 
@@ -26,14 +32,17 @@ public class LoadSceneManager : MonoBehaviour
         {
             transform.GetChild(0).gameObject.GetComponent<Book>().currentPage = PlayerPrefs.GetInt("currentPage", currentPage);
         }
-
-
-
+        if (currentPage == 8)
+        {
+            level4Button1.SetActive(true);
+            level4Button2.SetActive(true);
+        }
     }
     void Update()
     {
         UpdateLockStatus();
         UpdateButtonPosition();
+
     }
     public void LoadGameScene()
     {
@@ -56,8 +65,8 @@ public class LoadSceneManager : MonoBehaviour
             }
             else
             {
-                //lockImage.SetActive(true);
-                //buttonObj.GetComponent<Button>().interactable = false;
+                lockImage.SetActive(true);
+                buttonObj.GetComponent<Button>().interactable = false;
             }
 
         }
@@ -84,15 +93,12 @@ public class LoadSceneManager : MonoBehaviour
         {
             case 2:
                 levelButton.transform.position = position1.position;
-                Debug.Log("2");
                 break;
             case 4:
                 levelButton.transform.position = position2.position;
-                Debug.Log("4");
                 break;
             case 6:
                 levelButton.transform.position = position3.position;
-                Debug.Log("6");
                 break;
             default:
                 break;
@@ -106,7 +112,7 @@ public class LoadSceneManager : MonoBehaviour
         Debug.Log(currentPage == 2 || currentPage == 4 || currentPage == 6);
         if (currentPage == 2 || currentPage == 4 || currentPage == 6)
         {
-            Invoke("SetEntryActive", 2);
+            Invoke("SetEntryActive", 0.02f);
         }
     }
 
@@ -116,6 +122,12 @@ public class LoadSceneManager : MonoBehaviour
     }
 
     public void LoadMainUI()
+    {
+        buttonAs.Play();
+        Invoke("LoadScene", 0.3f);
+    }
+
+    private void LoadScene()
     {
         SceneManager.LoadSceneAsync("MainUI");
     }

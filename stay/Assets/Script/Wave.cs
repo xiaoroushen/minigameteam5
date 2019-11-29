@@ -76,7 +76,6 @@ public class Wave : MonoBehaviour
                 break;
 
             case "flower":
-                Debug.Log("与flower");
 
                 forceDirection = collision.transform.position - transform.position;
                 forceDirection=forceDirection.normalized*(1-rate);

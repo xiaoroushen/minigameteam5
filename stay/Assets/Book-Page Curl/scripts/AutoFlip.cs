@@ -11,6 +11,10 @@ public class AutoFlip : MonoBehaviour {
     public int AnimationFramesCount = 40;
     public AudioSource myAudioSource;
     public GameObject levelEnter;
+
+    public GameObject chooseEnter1;
+    public GameObject chooseEnter2;
+
     bool isFlipping = false;
 
     // Use this for initialization
@@ -34,8 +38,17 @@ public class AutoFlip : MonoBehaviour {
         if (isFlipping) return;
         if (ControledBook.currentPage >= ControledBook.TotalPageCount) return;
         isFlipping = true;
+        if (ControledBook.currentPage == 8)
+        {
+            chooseEnter1.SetActive(false);
+            chooseEnter2.SetActive(false);
+        }
+        CancelInvoke("SetEntryActive");
+        CancelInvoke("SetLevel4");
         levelEnter.SetActive(false);
         myAudioSource.Play();
+
+
         float frameTime = PageFlipTime / AnimationFramesCount;
         float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
         float xl = ((ControledBook.EndBottomRight.x - ControledBook.EndBottomLeft.x) / 2) * 0.9f;
@@ -43,9 +56,19 @@ public class AutoFlip : MonoBehaviour {
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
         float dx = (xl)*2 / AnimationFramesCount;
         StartCoroutine(FlipRTL(xc, xl, h, frameTime, dx));
+
+        if(ControledBook.currentPage == 6)
+        {
+            Invoke("SetLevel4", 1.7f);
+        }
+
+
         if(ControledBook.currentPage != 6)
         {
-            Invoke("SetEntryActive", 2);
+            if(ControledBook.currentPage != 8)
+            {
+                Invoke("SetEntryActive", 1.7f);
+            }
         }
     }
     public void FlipLeftPage()
@@ -53,6 +76,13 @@ public class AutoFlip : MonoBehaviour {
         if (isFlipping) return;
         if (ControledBook.currentPage <= 0) return;
         isFlipping = true;
+        CancelInvoke("SetEntryActive");
+        CancelInvoke("SetLevel4");
+        if (ControledBook.currentPage == 8)
+        {
+            chooseEnter1.SetActive(false);
+            chooseEnter2.SetActive(false);
+        }
         levelEnter.SetActive(false);
         myAudioSource.Play();
         if (ControledBook.currentPage == 2)
@@ -66,9 +96,18 @@ public class AutoFlip : MonoBehaviour {
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
         float dx = (xl) * 2 / AnimationFramesCount;
         StartCoroutine(FlipLTR(xc, xl, h, frameTime, dx));
-        if(ControledBook.currentPage != 2)
+
+        if (ControledBook.currentPage == 10)
         {
-            Invoke("SetEntryActive", 2);
+            Invoke("SetLevel4", 1.7f);
+        }
+        if (ControledBook.currentPage != 2)
+        {   
+            if (ControledBook.currentPage != 10)
+            {
+                Invoke("SetEntryActive", 1.7f);
+            }
+
         }
     }
     IEnumerator FlipToEnd()
@@ -145,5 +184,12 @@ public class AutoFlip : MonoBehaviour {
     private void SetEntryActive()
     {
         levelEnter.SetActive(true);
+    }
+
+    private void SetLevel4()
+    {
+        Debug.Log("123");
+        chooseEnter1.SetActive(true);
+        chooseEnter2.SetActive(true);
     }
 }

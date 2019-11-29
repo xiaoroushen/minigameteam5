@@ -5,24 +5,40 @@ using UnityEngine.SceneManagement;
 
 public class SummaryButtonEvent : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public AudioSource buttonAS;
     public void Restart()
     {
-        string sceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadSceneAsync(sceneName);
+        buttonAS.Play();
+        Invoke("LoadRestart", 0.4f);
     }
 
     // Update is called once per frame
     public void Next()
     {
         //记录当前通关场景playerprefab对象持久化
-
-
-        SceneManager.LoadSceneAsync("Book");
+        buttonAS.Play();
+        Invoke("LoadNext", 0.4f);
     }
 
     public void Home()
     {
+        buttonAS.Play();
+        Invoke("LoadHome", 0.4f);
+    }
+
+    private void LoadHome()
+    {
         SceneManager.LoadSceneAsync("MainUI");
+    }
+
+    private void LoadNext()
+    {
+        SceneManager.LoadSceneAsync("Book");
+    }
+
+    private void LoadRestart()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadSceneAsync(sceneName);
     }
 }
