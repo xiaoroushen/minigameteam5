@@ -4088,7 +4088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeLeftToBegin: 0
-  delayTime: 0.3
+  delayTime: 0.4
   countDown: 3
   eventID: Halfmoon_SerenadeTrack
   isAccNote: 0
